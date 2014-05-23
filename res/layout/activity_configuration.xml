@@ -9,8 +9,22 @@
     tools:context=".ConfigurationActivity" >
 
     <TextView
+        android:id="@+id/listadoTiendasLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="@string/configuration_label" />
+
+    <Spinner
+        android:id="@+id/listadoTiendas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listadoTiendasLabel" />
+
+    <Button
+        android:id="@+id/guardarDatosBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listadoTiendas"
+        android:text="@string/save_data_btn" />
 
 </RelativeLayout>

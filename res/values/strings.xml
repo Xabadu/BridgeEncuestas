@@ -7,5 +7,7 @@
     <string name="title_activity_configuration">ConfigurationActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_encuesta">EncuestaActivity</string>
+    <string name="save_data_btn">Guardar Datos</string>
+    <string name="configuration_label">Seleccione el local</string>
 
 </resources>
