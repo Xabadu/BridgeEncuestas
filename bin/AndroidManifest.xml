@@ -24,6 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="net.medialabs.bridgestone.ConfigurationActivity"
+            android:label="@string/title_activity_configuration" >
+        </activity>
+        <activity
+            android:name="net.medialabs.bridgestone.EncuestaActivity"
+            android:label="@string/title_activity_encuesta" >
+        </activity>
     </application>
 
 </manifest>
