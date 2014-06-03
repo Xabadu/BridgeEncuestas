@@ -2,15 +2,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_encuestas"
     tools:context=".EncuestaActivity" >
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:src="@drawable/img_bg_topbar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/breadcrumb_encuestas"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="8sp" />
+    
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/breadcrumb_encuestas"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="8sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_encuesta_standard"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/contenedorPreguntas"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#e5e7e8"
+        android:alpha="0.7" >
+
+        <TextView
+            android:id="@+id/tituloPregunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white"
+            android:padding="5dp"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_siguiente"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/contenedorPreguntas" />
+
+    <ImageButton
+        android:id="@+id/btnVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/btn_volver"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/contenedorPreguntas" />
 
 </RelativeLayout>

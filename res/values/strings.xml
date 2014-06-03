@@ -9,5 +9,7 @@
     <string name="title_activity_encuesta">EncuestaActivity</string>
     <string name="save_data_btn">Guardar Datos</string>
     <string name="configuration_label">Seleccione el local</string>
+    <string name="breadcrumb_encuestas">Encuesta BRIDGESTONE</string>
+    <string name="label_encuesta_standard">Encuesta</string>
 
 </resources>
