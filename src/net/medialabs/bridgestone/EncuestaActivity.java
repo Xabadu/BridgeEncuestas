@@ -1,6 +1,7 @@
 package net.medialabs.bridgestone;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import net.medialabs.utilities.Alertas;
 
@@ -22,9 +23,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class EncuestaActivity extends Activity {
@@ -37,11 +40,13 @@ public class EncuestaActivity extends Activity {
 	private JSONArray opcionesPreguntaArray;
 	private JSONObject resultObject;
 	private JSONObject preguntaSimple;
+	private int indiceOtros;
 	private int numeroPregunta;
 	EditText campoRespuesta;
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
 	LinearLayout contenedorPreguntas;
+	Spinner listaRespuestas;
 	TextView enunciadoPregunta;
 
 	@Override
@@ -55,6 +60,7 @@ public class EncuestaActivity extends Activity {
 	private void mostrarEncuesta(final JSONObject encuesta, int numero) {
 		setContentView(R.layout.activity_encuesta);
 		numeroPregunta = numero;
+		indiceOtros = -1;
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
 		btnVolver = (ImageButton) findViewById(R.id.btnVolver);
 		try {
@@ -73,6 +79,29 @@ public class EncuestaActivity extends Activity {
 				opcionesPreguntaArray = opcionesArray.getJSONArray(numeroPregunta);
 				
 				if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
+					ArrayList<String> optionsList = new ArrayList<String>();
+					optionsList.add("Seleccione una alternativa");
+					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
+						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
+							optionsList.add(optionValues.getString("nombre"));
+						} else {
+							indiceOtros = i;
+						}
+					}
+					listaRespuestas = new Spinner(this);
+					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, optionsList);
+					listaRespuestas.setAdapter(spinnerArrayAdapter);
+					contenedorPreguntas.addView(listaRespuestas);
+					if(indiceOtros != -1) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
+						campoRespuesta = new EditText(this);
+						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
+						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
+						campoRespuesta.setHint(optionValues.getString("nombre"));
+						contenedorPreguntas.addView(campoRespuesta);
+					}
+					
 					
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
 					
