@@ -2,16 +2,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg_encuestas"
     tools:context=".ConfigurationActivity" >
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_bg_topbar" />
+    
+    <LinearLayout
+        android:id="@+id/contenedorPreguntas"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#e5e7e8" >
 
     <TextView
         android:id="@+id/listadoTiendasLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:text="@string/configuration_label" />
 
     <Spinner
@@ -25,6 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/listadoTiendas"
-        android:text="@string/save_data_btn" />
+        android:text="@string/save_data_btn"
+        android:background="@android:color/black" />
+   
+    </LinearLayout>
 
 </RelativeLayout>

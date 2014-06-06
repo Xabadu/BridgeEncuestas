@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,9 +25,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -42,11 +46,10 @@ public class EncuestaActivity extends Activity {
 	private JSONObject preguntaSimple;
 	private int indiceOtros;
 	private int numeroPregunta;
-	EditText campoRespuesta;
+	
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
-	LinearLayout contenedorPreguntas;
-	Spinner listaRespuestas;
+	
 	TextView enunciadoPregunta;
 
 	@Override
@@ -59,6 +62,9 @@ public class EncuestaActivity extends Activity {
 	
 	private void mostrarEncuesta(final JSONObject encuesta, int numero) {
 		setContentView(R.layout.activity_encuesta);
+		EditText campoRespuesta = null;
+		LinearLayout contenedorPreguntas;
+		Spinner listaRespuestas;
 		numeroPregunta = numero;
 		indiceOtros = -1;
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
@@ -104,9 +110,52 @@ public class EncuestaActivity extends Activity {
 					
 					
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
-					
+					final RadioButton[] rb = new RadioButton[opcionesPreguntaArray.length()];
+					RadioGroup rg = new RadioGroup(this);
+					rg.setOrientation(RadioGroup.VERTICAL);
+					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
+						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
+							rb[i] = new RadioButton(this);
+							rb[i].setText(optionValues.getString("nombre"));
+							rb[i].setTextColor(Color.BLACK);
+							rg.addView(rb[i]);
+						} else {
+							indiceOtros = i;
+						}
+						
+					}
+					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
+					scroll.addView(rg);
+					if(indiceOtros != -1) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
+						campoRespuesta = new EditText(this);
+						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
+						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
+						campoRespuesta.setHint(optionValues.getString("nombre"));
+						scroll.addView(campoRespuesta);
+					}
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
-					
+					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
+					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
+						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
+							CheckBox cb = new CheckBox(this);
+							cb.setText(optionValues.getString("nombre"));
+							scroll.addView(cb);
+						} else {
+							indiceOtros = i;
+						}
+						
+					}
+					if(indiceOtros != -1) {
+						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
+						campoRespuesta = new EditText(this);
+						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
+						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
+						campoRespuesta.setHint(optionValues.getString("nombre"));
+						scroll.addView(campoRespuesta);
+					}	
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 					
 				}

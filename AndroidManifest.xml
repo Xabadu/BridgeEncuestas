@@ -28,13 +28,13 @@
             android:name="net.medialabs.bridgestone.ConfigurationActivity"
             android:label="@string/title_activity_configuration"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
         </activity>
         <activity
             android:name="net.medialabs.bridgestone.EncuestaActivity"
             android:label="@string/title_activity_encuesta"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
         </activity>
     </application>
 
