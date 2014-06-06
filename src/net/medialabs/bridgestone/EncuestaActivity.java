@@ -33,6 +33,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EncuestaActivity extends Activity {
 	
@@ -171,10 +172,10 @@ public class EncuestaActivity extends Activity {
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				numeroPregunta++;
-				if(numeroPregunta <= preguntasArray.length()) {
+				if(numeroPregunta < preguntasArray.length()) {
 					mostrarEncuesta(encuesta, numeroPregunta);
 				} else {
-					// procesar respuestas
+					
 				}
 			}
 		});
