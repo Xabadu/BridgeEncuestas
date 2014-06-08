@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.medialabs.utilities.Alertas;
+import net.medialabs.utilities.Respuesta;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,7 +35,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EncuestaActivity extends Activity {
 	
@@ -47,6 +48,11 @@ public class EncuestaActivity extends Activity {
 	private JSONObject preguntaSimple;
 	private int indiceOtros;
 	private int numeroPregunta;
+	private int idEncuesta = -1;
+	private int idPregunta = -1;
+	private int opcion = -1;
+	private String detalle = "";
+	private ArrayList<Respuesta> listadoRespuestas = new ArrayList<Respuesta>();
 	
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
@@ -61,7 +67,9 @@ public class EncuestaActivity extends Activity {
 		encuesta.execute();
 	}
 	
-	private void mostrarEncuesta(final JSONObject encuesta, int numero) {
+	private void mostrarEncuesta(final JSONObject encuesta, int numero, ArrayList<Respuesta> resp) {
+		listadoRespuestas.clear();
+		listadoRespuestas = resp;
 		setContentView(R.layout.activity_encuesta);
 		EditText campoRespuesta = null;
 		LinearLayout contenedorPreguntas;
@@ -70,6 +78,10 @@ public class EncuestaActivity extends Activity {
 		indiceOtros = -1;
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
 		btnVolver = (ImageButton) findViewById(R.id.btnVolver);
+		idEncuesta = -1;
+		idPregunta = -1;
+		opcion = -1;
+		detalle = "";
 		try {
 			preguntasArray = encuesta.getJSONArray("preguntas");
 			preguntaSimple = preguntasArray.getJSONObject(numeroPregunta);
@@ -78,6 +90,7 @@ public class EncuestaActivity extends Activity {
 			contenedorPreguntas = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 			if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) {
 				campoRespuesta = new EditText(this);
+				campoRespuesta.setId(R.id.campoRespuesta);
 				campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 				campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 				contenedorPreguntas.addView(campoRespuesta);
@@ -97,6 +110,7 @@ public class EncuestaActivity extends Activity {
 						}
 					}
 					listaRespuestas = new Spinner(this);
+					listaRespuestas.setId(R.id.spinnerRespuesta);
 					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, optionsList);
 					listaRespuestas.setAdapter(spinnerArrayAdapter);
 					contenedorPreguntas.addView(listaRespuestas);
@@ -113,6 +127,7 @@ public class EncuestaActivity extends Activity {
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
 					final RadioButton[] rb = new RadioButton[opcionesPreguntaArray.length()];
 					RadioGroup rg = new RadioGroup(this);
+					rg.setId(R.id.radioGroupRespuesta);
 					rg.setOrientation(RadioGroup.VERTICAL);
 					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
@@ -131,6 +146,7 @@ public class EncuestaActivity extends Activity {
 					if(indiceOtros != -1) {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
 						campoRespuesta = new EditText(this);
+						campoRespuesta.setId(R.id.campoRespuesta);
 						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
@@ -171,11 +187,42 @@ public class EncuestaActivity extends Activity {
 		
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				numeroPregunta++;
+				boolean enabled = false;
 				if(numeroPregunta < preguntasArray.length()) {
-					mostrarEncuesta(encuesta, numeroPregunta);
+					try {
+						if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
+							EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+							detalle = campoR.getText().toString();
+							if(!detalle.equals("")) {
+								opcion = 0;
+								enabled = true;
+							}
+						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
+							Spinner spinnerR = (Spinner) findViewById(R.id.spinnerRespuesta);
+							int selected = spinnerR.getSelectedItemPosition();
+							if(selected != Spinner.INVALID_POSITION) {
+								JSONObject optionValues = opcionesPreguntaArray.getJSONObject(selected);
+								enabled = true;
+								opcion = Integer.parseInt(optionValues.getString("id"));
+								detalle = optionValues.getString("nombre");
+							}	
+						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
+							
+						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
+							
+						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
+							
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					if(enabled) {
+						numeroPregunta++;
+						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+					}
 				} else {
-					
+					Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+					startActivity(intent);
 				}
 			}
 		});
@@ -241,7 +288,7 @@ public class EncuestaActivity extends Activity {
 					resultObject = new JSONObject(result);
 					if(resultObject.getString("status").equalsIgnoreCase("OK")) {
 						encuestaObject = resultObject.getJSONObject("response");
-						mostrarEncuesta(encuestaObject, 0);
+						mostrarEncuesta(encuestaObject, 0, listadoRespuestas);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

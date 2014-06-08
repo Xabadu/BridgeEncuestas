@@ -36,6 +36,12 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
         </activity>
+        <activity
+            android:name="net.medialabs.bridgestone.RegistroActivity"
+            android:label="@string/title_activity_registro"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
+        </activity>
     </application>
 
 </manifest>

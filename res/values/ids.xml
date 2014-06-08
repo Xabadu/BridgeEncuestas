@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="campoRespuesta" type="id" />
+	<item name="spinnerRespuesta" type="id" />
+	<item name="radioGroupRespuesta" type="id" />    
+</resources>

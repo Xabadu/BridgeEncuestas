@@ -11,5 +11,7 @@
     <string name="configuration_label">Seleccione el local</string>
     <string name="breadcrumb_encuestas">Encuesta BRIDGESTONE</string>
     <string name="label_encuesta_standard">Encuesta</string>
+    <string name="title_activity_registro">RegistroActivity</string>
+    <string name="breadcrumb_registro">Registro de clientes</string>
 
 </resources>
