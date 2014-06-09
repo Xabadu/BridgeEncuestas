@@ -21,15 +21,155 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="8sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@+id/imgTopbar"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/img_container_registro"
         android:layout_centerInParent="true"
         android:alpha="0.9" >
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/registerContainerHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_registro"
+            android:textColor="@android:color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/registerContainerText"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registerContainerHeader"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/text_register"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_cancel"
+            android:background="@android:color/transparent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_accept"
+            android:background="@android:color/transparent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/registerContainerHeader"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="3dp"
+            android:hint="Nombre"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/editText1"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:hint="Apellidos"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/editText2"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:hint="Correo"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/editText3"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:hint="RUT"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/editText4"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:hint="Patente"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+        
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@android:color/white"
+            android:layout_below="@+id/editText5"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="1dp"
+            android:hint="Telefono"
+            android:padding="3dp"
+            android:layout_marginRight="10dp" >
+       
+
+        </EditText>
+
+    </RelativeLayout>
 
 </RelativeLayout>

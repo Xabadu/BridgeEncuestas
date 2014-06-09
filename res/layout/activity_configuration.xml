@@ -6,44 +6,48 @@
     tools:context=".ConfigurationActivity" >
     
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/topbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_bg_topbar" />
-    
-    <LinearLayout
-        android:id="@+id/contenedorPreguntas"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="50dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="#e5e7e8" >
 
-    <TextView
-        android:id="@+id/listadoTiendasLabel"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text="@string/configuration_label" />
+        android:background="@drawable/img_container_registro"
+        android:layout_below="@+id/topbar"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:alpha="0.9" >
 
-    <Spinner
-        android:id="@+id/listadoTiendas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listadoTiendasLabel" />
+        <TextView
+            android:id="@+id/listadoTiendasLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configuration_label"
+            android:textColor="@android:color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@android:style/TextAppearance.Large" />
 
-    <Button
-        android:id="@+id/guardarDatosBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listadoTiendas"
-        android:text="@string/save_data_btn"
-        android:background="@android:color/black" />
-   
-    </LinearLayout>
+        <Spinner
+            android:id="@+id/listadoTiendas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listadoTiendasLabel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
+        <ImageButton
+            android:id="@+id/guardarDatosBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/btn_guardar"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listadoTiendas" />
+    </RelativeLayout>
 
 </RelativeLayout>

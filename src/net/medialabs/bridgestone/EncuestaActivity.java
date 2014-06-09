@@ -93,6 +93,7 @@ public class EncuestaActivity extends Activity {
 				campoRespuesta.setId(R.id.campoRespuesta);
 				campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 				campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
+				//campoRespuesta.setBackgroundColor(Color.WHITE);
 				contenedorPreguntas.addView(campoRespuesta);
 			} else {
 				opcionesArray = encuesta.getJSONArray("opciones");
@@ -120,6 +121,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
+						//campoRespuesta.setBackgroundColor(Color.WHITE);
 						contenedorPreguntas.addView(campoRespuesta);
 					}
 					
@@ -150,6 +152,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
+						//campoRespuesta.setBackgroundColor(Color.WHITE);
 						scroll.addView(campoRespuesta);
 					}
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
@@ -171,6 +174,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
 						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
+						//campoRespuesta.setBackgroundColor(Color.WHITE);
 						scroll.addView(campoRespuesta);
 					}	
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
@@ -188,7 +192,9 @@ public class EncuestaActivity extends Activity {
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				boolean enabled = false;
+				numeroPregunta++;
 				if(numeroPregunta < preguntasArray.length()) {
+					/*
 					try {
 						if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
 							EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
@@ -219,7 +225,9 @@ public class EncuestaActivity extends Activity {
 					if(enabled) {
 						numeroPregunta++;
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-					}
+					} */
+					
+					mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 				} else {
 					Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
 					startActivity(intent);
