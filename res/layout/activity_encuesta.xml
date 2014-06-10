@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="80dp"
-                android:alpha="0.7"
-                android:background="#e5e7e8"
+                android:alpha="0.9"
+                android:background="@drawable/rounded_corner"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
                 android:layout_centerHorizontal="true"
@@ -67,13 +67,14 @@
 
                         <TextView
                             android:id="@+id/tituloPregunta"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="5dp"
-                            android:background="@android:color/white"
+                            android:background="@drawable/rounded_bg_preguntas"
                             android:padding="5dp"
                             android:text="TextView"
+                            android:textStyle="bold"
                             android:textColor="@android:color/black" />
 
                     </LinearLayout>

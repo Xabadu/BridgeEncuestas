@@ -16,16 +16,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.anim;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -86,15 +89,20 @@ public class EncuestaActivity extends Activity {
 			preguntasArray = encuesta.getJSONArray("preguntas");
 			preguntaSimple = preguntasArray.getJSONObject(numeroPregunta);
 			enunciadoPregunta = (TextView) findViewById(R.id.tituloPregunta);
-			enunciadoPregunta.setText(preguntaSimple.getString("enunciado"));
+			enunciadoPregunta.setText(String.valueOf(numeroPregunta+1) + ".-" + preguntaSimple.getString("enunciado"));
 			contenedorPreguntas = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 			if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) {
 				campoRespuesta = new EditText(this);
 				campoRespuesta.setId(R.id.campoRespuesta);
-				campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
-				campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
-				//campoRespuesta.setBackgroundColor(Color.WHITE);
+				campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
+				campoRespuesta.setHint("Ingrese su respuesta");
+				campoRespuesta.setTextColor(Color.BLACK);
 				contenedorPreguntas.addView(campoRespuesta);
+				View v = new View(this);
+				v.setLayoutParams(new ViewGroup.LayoutParams(
+				        ViewGroup.LayoutParams.WRAP_CONTENT,
+				        5));
+				contenedorPreguntas.addView(v);
 			} else {
 				opcionesArray = encuesta.getJSONArray("opciones");
 				opcionesPreguntaArray = opcionesArray.getJSONArray(numeroPregunta);
@@ -114,15 +122,26 @@ public class EncuestaActivity extends Activity {
 					listaRespuestas.setId(R.id.spinnerRespuesta);
 					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, optionsList);
 					listaRespuestas.setAdapter(spinnerArrayAdapter);
+					listaRespuestas.setBackgroundResource(R.drawable.rounded_bg_edittext);
+					listaRespuestas.setSelection(0);
 					contenedorPreguntas.addView(listaRespuestas);
+					View v = new View(this);
+					v.setLayoutParams(new ViewGroup.LayoutParams(
+					        ViewGroup.LayoutParams.WRAP_CONTENT,
+					        5));
+					contenedorPreguntas.addView(v);
 					if(indiceOtros != -1) {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
 						campoRespuesta = new EditText(this);
-						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
-						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
-						//campoRespuesta.setBackgroundColor(Color.WHITE);
+						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
+						campoRespuesta.setTextColor(Color.BLACK);
 						contenedorPreguntas.addView(campoRespuesta);
+						View v2 = new View(this);
+						v2.setLayoutParams(new ViewGroup.LayoutParams(
+						        ViewGroup.LayoutParams.WRAP_CONTENT,
+						        5));
+						contenedorPreguntas.addView(v2);
 					}
 					
 					
@@ -131,13 +150,23 @@ public class EncuestaActivity extends Activity {
 					RadioGroup rg = new RadioGroup(this);
 					rg.setId(R.id.radioGroupRespuesta);
 					rg.setOrientation(RadioGroup.VERTICAL);
+					rg.setLayoutParams(new ViewGroup.LayoutParams(
+					        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
 						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
 							rb[i] = new RadioButton(this);
 							rb[i].setText(optionValues.getString("nombre"));
 							rb[i].setTextColor(Color.BLACK);
+							rb[i].setBackgroundResource(R.drawable.rounded_bg_edittext);
+							rb[i].setLayoutParams(new ViewGroup.LayoutParams(
+							        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 							rg.addView(rb[i]);
+							View v = new View(this);
+							v.setLayoutParams(new ViewGroup.LayoutParams(
+							        ViewGroup.LayoutParams.WRAP_CONTENT,
+							        5));
+							rg.addView(v);
 						} else {
 							indiceOtros = i;
 						}
@@ -149,11 +178,15 @@ public class EncuestaActivity extends Activity {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
 						campoRespuesta = new EditText(this);
 						campoRespuesta.setId(R.id.campoRespuesta);
-						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
-						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
-						//campoRespuesta.setBackgroundColor(Color.WHITE);
+						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
+						campoRespuesta.setTextColor(Color.BLACK);
 						scroll.addView(campoRespuesta);
+						View v = new View(this);
+						v.setLayoutParams(new ViewGroup.LayoutParams(
+						        ViewGroup.LayoutParams.WRAP_CONTENT,
+						        5));
+						scroll.addView(v);
 					}
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
 					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
@@ -161,8 +194,15 @@ public class EncuestaActivity extends Activity {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
 						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
 							CheckBox cb = new CheckBox(this);
-							cb.setText(optionValues.getString("nombre"));
+							cb.setText(String.valueOf(i + 1) + ". " + optionValues.getString("nombre"));
+							cb.setBackgroundResource(R.drawable.rounded_bg_edittext);
+							cb.setTextColor(Color.BLACK);
 							scroll.addView(cb);
+							View v = new View(this);
+							v.setLayoutParams(new ViewGroup.LayoutParams(
+							        ViewGroup.LayoutParams.WRAP_CONTENT,
+							        5));
+							scroll.addView(v);
 						} else {
 							indiceOtros = i;
 						}
@@ -171,14 +211,44 @@ public class EncuestaActivity extends Activity {
 					if(indiceOtros != -1) {
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
 						campoRespuesta = new EditText(this);
-						campoRespuesta.setWidth(LayoutParams.MATCH_PARENT);
-						campoRespuesta.setHeight(LayoutParams.WRAP_CONTENT);
 						campoRespuesta.setHint(optionValues.getString("nombre"));
-						//campoRespuesta.setBackgroundColor(Color.WHITE);
+						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
+						campoRespuesta.setTextColor(Color.BLACK);
 						scroll.addView(campoRespuesta);
+						View v = new View(this);
+						v.setLayoutParams(new ViewGroup.LayoutParams(
+						        ViewGroup.LayoutParams.WRAP_CONTENT,
+						        5));
+						scroll.addView(v);
 					}	
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 					
+					LinearLayout contenedorCaras = new LinearLayout(this);
+					contenedorCaras.setOrientation(LinearLayout.HORIZONTAL);
+					contenedorCaras.setBackgroundResource(R.drawable.rounded_bg_edittext);
+					contenedorCaras.setGravity(Gravity.CENTER);
+					ImageButton caraVerde = new ImageButton(this);
+					caraVerde.setImageResource(R.drawable.img_face_green);
+					caraVerde.setBackgroundColor(Color.TRANSPARENT);
+					ImageButton caraAmarilla = new ImageButton(this);
+					caraAmarilla.setImageResource(R.drawable.img_face_yellow);
+					caraAmarilla.setBackgroundColor(Color.TRANSPARENT);
+					ImageButton caraNaranja = new ImageButton(this);
+					caraNaranja.setImageResource(R.drawable.img_face_orange);
+					caraNaranja.setBackgroundColor(Color.TRANSPARENT);
+					ImageButton caraRoja = new ImageButton(this);
+					caraRoja.setImageResource(R.drawable.img_face_red);
+					caraRoja.setBackgroundColor(Color.TRANSPARENT);
+					contenedorCaras.addView(caraVerde);
+					contenedorCaras.addView(caraAmarilla);
+					contenedorCaras.addView(caraNaranja);
+					contenedorCaras.addView(caraRoja);
+					contenedorPreguntas.addView(contenedorCaras);
+					View v = new View(this);
+					v.setLayoutParams(new ViewGroup.LayoutParams(
+					        ViewGroup.LayoutParams.WRAP_CONTENT,
+					        5));
+					contenedorPreguntas.addView(v);
 				}
 				
 			} 

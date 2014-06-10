@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class ConfigurationActivity extends Activity implements OnItemSelectedListener {
@@ -36,7 +37,7 @@ public class ConfigurationActivity extends Activity implements OnItemSelectedLis
 	private static final String SERVICE_FORMAT = "format/json/";
 	private static final String PREFERENCES_FILE = "net.medialabs.bridgestone.PREFERENCE_FILE_KEY";
 	private static int idTienda;
-	Button guardarDatosBtn;
+	ImageButton guardarDatosBtn;
 	Spinner listadoTiendas;
 	JSONArray resultArray;
 	JSONObject resultObject;
@@ -57,7 +58,7 @@ public class ConfigurationActivity extends Activity implements OnItemSelectedLis
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		listadoTiendas.setAdapter(adapter);
 		
-		guardarDatosBtn = (Button) findViewById(R.id.guardarDatosBtn);
+		guardarDatosBtn = (ImageButton) findViewById(R.id.guardarDatosBtn);
 		guardarDatosBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				int position = listadoTiendas.getSelectedItemPosition();

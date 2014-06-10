@@ -28,9 +28,19 @@ public final class R {
         public static final int btn_guardar=0x7f020004;
         public static final int btn_siguiente=0x7f020005;
         public static final int btn_volver=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int img_bg_topbar=0x7f020008;
-        public static final int img_container_registro=0x7f020009;
+        public static final int checkbox_custom=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int img_bg_topbar=0x7f020009;
+        public static final int img_checkbox_check=0x7f02000a;
+        public static final int img_checkbox_uncheck=0x7f02000b;
+        public static final int img_container_registro=0x7f02000c;
+        public static final int img_face_green=0x7f02000d;
+        public static final int img_face_orange=0x7f02000e;
+        public static final int img_face_red=0x7f02000f;
+        public static final int img_face_yellow=0x7f020010;
+        public static final int rounded_bg_edittext=0x7f020011;
+        public static final int rounded_bg_preguntas=0x7f020012;
+        public static final int rounded_corner=0x7f020013;
     }
     public static final class id {
         public static final int action_settings=0x7f05001c;
