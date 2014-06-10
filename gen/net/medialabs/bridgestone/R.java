@@ -44,6 +44,8 @@ public final class R {
     }
     public static final class id {
         public static final int action_settings=0x7f05001c;
+        public static final int btnCancelarRegistro=0x7f050014;
+        public static final int btnGuardarRegistro=0x7f050015;
         public static final int btnSiguiente=0x7f050010;
         public static final int btnVolver=0x7f05000f;
         public static final int campoRespuesta=0x7f050000;
@@ -55,8 +57,6 @@ public final class R {
         public static final int editText5=0x7f05001a;
         public static final int editText6=0x7f05001b;
         public static final int guardarDatosBtn=0x7f050006;
-        public static final int imageButton1=0x7f050014;
-        public static final int imageButton2=0x7f050015;
         public static final int imageView1=0x7f050008;
         public static final int imgTopbar=0x7f050011;
         public static final int linearInsideContenedor=0x7f05000d;
