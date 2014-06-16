@@ -75,7 +75,7 @@
             android:layout_marginRight="5dp" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/registroNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -94,12 +94,12 @@
 
         
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/registroApellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
-            android:layout_below="@+id/editText1"
+            android:layout_below="@+id/registroNombre"
             android:layout_alignParentRight="true"
             android:layout_marginTop="1dp"
             android:layout_marginLeft="220dp"
@@ -111,12 +111,12 @@
         </EditText>
         
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/registroCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
-            android:layout_below="@+id/editText2"
+            android:layout_below="@+id/registroApellidos"
             android:layout_alignParentRight="true"
             android:layout_marginTop="1dp"
             android:layout_marginLeft="220dp"
@@ -128,12 +128,12 @@
         </EditText>
         
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/registroRut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
-            android:layout_below="@+id/editText3"
+            android:layout_below="@+id/registroCorreo"
             android:layout_alignParentRight="true"
             android:layout_marginTop="1dp"
             android:layout_marginLeft="270dp"
@@ -145,12 +145,12 @@
         </EditText>
         
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/registroPatente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
-            android:layout_below="@+id/editText4"
+            android:layout_below="@+id/registroRut"
             android:layout_alignParentRight="true"
             android:layout_marginTop="1dp"
             android:layout_marginLeft="270dp"
@@ -162,12 +162,12 @@
         </EditText>
         
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/registroTelefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
-            android:layout_below="@+id/editText5"
+            android:layout_below="@+id/registroPatente"
             android:layout_alignParentRight="true"
             android:layout_marginTop="1dp"
             android:layout_marginLeft="270dp"

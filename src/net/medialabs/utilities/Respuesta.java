@@ -12,16 +12,16 @@ public class Respuesta {
 		this.detalle = detalle;
 	}
 	
-	private int getEncuesta() {
+	public int getEncuesta() {
 		return encuesta;
 	}
 	
-	private int getPregunta() {
+	public int getPregunta() {
 		return pregunta;
 	}
 
 	
-	private String getDetalle() {
+	public String getDetalle() {
 		return detalle;
 	}
 	

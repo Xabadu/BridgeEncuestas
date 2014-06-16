@@ -1,6 +1,7 @@
 package net.medialabs.bridgestone;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import net.medialabs.utilities.Alertas;
@@ -10,27 +11,29 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.anim;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -38,6 +41,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EncuestaActivity extends Activity {
 	
@@ -53,7 +57,6 @@ public class EncuestaActivity extends Activity {
 	private int numeroPregunta;
 	private int idEncuesta = -1;
 	private int idPregunta = -1;
-	private int opcion = -1;
 	private String detalle = "";
 	private ArrayList<Respuesta> listadoRespuestas = new ArrayList<Respuesta>();
 	
@@ -71,7 +74,8 @@ public class EncuestaActivity extends Activity {
 	}
 	
 	private void mostrarEncuesta(final JSONObject encuesta, int numero, ArrayList<Respuesta> resp) {
-		listadoRespuestas.clear();
+		Log.d("Total", String.valueOf(resp.size()));
+		//listadoRespuestas.clear();
 		listadoRespuestas = resp;
 		setContentView(R.layout.activity_encuesta);
 		EditText campoRespuesta = null;
@@ -83,7 +87,6 @@ public class EncuestaActivity extends Activity {
 		btnVolver = (ImageButton) findViewById(R.id.btnVolver);
 		idEncuesta = -1;
 		idPregunta = -1;
-		opcion = -1;
 		detalle = "";
 		try {
 			preguntasArray = encuesta.getJSONArray("preguntas");
@@ -223,22 +226,22 @@ public class EncuestaActivity extends Activity {
 					caraVerde.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							numeroPregunta++;
+							JSONObject encuestaInfo;
+							try {
+								encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								detalle = "BUENO";
+								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(respuesta);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
 							if(numeroPregunta < preguntasArray.length()) {
-								JSONObject encuestaInfo;
-								try {
-									encuestaInfo = encuesta.getJSONObject("encuesta");
-									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-									detalle = "BUENO";
-									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-									listadoRespuestas.add(respuesta);
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 							} else {
-								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
-								startActivity(intent);
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
 							}
 						}
 					});
@@ -246,22 +249,22 @@ public class EncuestaActivity extends Activity {
 					caraAmarilla.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							numeroPregunta++;
-							if(numeroPregunta < preguntasArray.length()) {
-								JSONObject encuestaInfo;
-								try {
-									encuestaInfo = encuesta.getJSONObject("encuesta");
-									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-									detalle = "REGULAR";
-									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-									listadoRespuestas.add(respuesta);
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
+							JSONObject encuestaInfo;
+							try {
+								encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								detalle = "REGULAR";
+								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(respuesta);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							if(numeroPregunta <= preguntasArray.length()) {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 							} else {
-								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
-								startActivity(intent);
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
 							}
 						}
 					});
@@ -269,22 +272,22 @@ public class EncuestaActivity extends Activity {
 					caraNaranja.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							numeroPregunta++;
-							if(numeroPregunta < preguntasArray.length()) {
-								JSONObject encuestaInfo;
-								try {
-									encuestaInfo = encuesta.getJSONObject("encuesta");
-									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-									detalle = "MALO";
-									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-									listadoRespuestas.add(respuesta);
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
+							JSONObject encuestaInfo;
+							try {
+								encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								detalle = "MALO";
+								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(respuesta);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							if(numeroPregunta <= preguntasArray.length()) {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 							} else {
-								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
-								startActivity(intent);
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
 							}
 						}
 					});
@@ -292,22 +295,22 @@ public class EncuestaActivity extends Activity {
 					caraRoja.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							numeroPregunta++;
-							if(numeroPregunta < preguntasArray.length()) {
-								JSONObject encuestaInfo;
-								try {
-									encuestaInfo = encuesta.getJSONObject("encuesta");
-									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-									detalle = "MUY MALO";
-									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-									listadoRespuestas.add(respuesta);
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
+							JSONObject encuestaInfo;
+							try {
+								encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								detalle = "MUY MALO";
+								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(respuesta);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							if(numeroPregunta <= preguntasArray.length()) {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 							} else {
-								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
-								startActivity(intent);
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
 							}
 						}
 					});
@@ -324,61 +327,67 @@ public class EncuestaActivity extends Activity {
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				boolean enabled = false;
-				if(numeroPregunta < preguntasArray.length()) {
-					try {
-						if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
+				numeroPregunta++;
+				try {
+					if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
+						EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+						detalle = campoR.getText().toString();
+						if(!detalle.equals("")) {
+							enabled = true;
+						}
+					} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
+						Spinner spinnerR = (Spinner) findViewById(R.id.spinnerRespuesta);
+						int selected = spinnerR.getSelectedItemPosition();
+						if(selected != Spinner.INVALID_POSITION) {
+							JSONObject optionValues = opcionesPreguntaArray.getJSONObject(selected);
+							enabled = true;
+							detalle = optionValues.getString("nombre");
+						} else {
 							EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
 							detalle = campoR.getText().toString();
 							if(!detalle.equals("")) {
 								enabled = true;
 							}
-						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
-							Spinner spinnerR = (Spinner) findViewById(R.id.spinnerRespuesta);
-							int selected = spinnerR.getSelectedItemPosition();
-							if(selected != Spinner.INVALID_POSITION) {
-								JSONObject optionValues = opcionesPreguntaArray.getJSONObject(selected);
+						}
+					} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
+						RadioGroup radioG = (RadioGroup) findViewById(R.id.radioGroupRespuesta);
+						int radioSelectedId = radioG.getCheckedRadioButtonId();
+						if(radioSelectedId != -1) {
+							RadioButton radioB = (RadioButton) findViewById(radioSelectedId);
+							detalle = radioB.getText().toString();
+							enabled = true;
+						} else {
+							EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+							detalle = campoR.getText().toString();
+							if(!detalle.equals("")) {
 								enabled = true;
-								detalle = optionValues.getString("nombre");
-							} else {
-								EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
-								detalle = campoR.getText().toString();
-								if(!detalle.equals("")) {
-									enabled = true;
-								}
 							}
-						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
-							RadioGroup radioG = (RadioGroup) findViewById(R.id.radioGroupRespuesta);
-							int radioSelectedId = radioG.getCheckedRadioButtonId();
-							if(radioSelectedId != -1) {
-								RadioButton radioB = (RadioButton) findViewById(radioSelectedId);
-								detalle = radioB.getText().toString();
-							} else {
-								EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
-								detalle = campoR.getText().toString();
-								if(!detalle.equals("")) {
-									enabled = true;
-								}
-							}						
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
+						}						
 					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				try {
+					JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+					idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+					idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+					Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+					listadoRespuestas.add(resp);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
-						try {
-							JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
-							idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-							idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-							Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
-							listadoRespuestas.add(resp);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-						numeroPregunta++;
+						
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-					} 
+					} else {
+						numeroPregunta--;
+					}
+					
 				} else {
-					Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
-					startActivity(intent);
+					GuardarEncuesta guardar = new GuardarEncuesta();
+					guardar.execute();
 				}
 			}
 		});
@@ -444,6 +453,7 @@ public class EncuestaActivity extends Activity {
 					resultObject = new JSONObject(result);
 					if(resultObject.getString("status").equalsIgnoreCase("OK")) {
 						encuestaObject = resultObject.getJSONObject("response");
+						listadoRespuestas.clear();
 						mostrarEncuesta(encuestaObject, 0, listadoRespuestas);
 					}
 				} catch (JSONException e) {
@@ -452,6 +462,98 @@ public class EncuestaActivity extends Activity {
 				dialog.dismiss();
 			}
 			
+		}
+		
+	}
+	
+	private class GuardarEncuesta extends AsyncTask<Void, Void, String> {
+		
+		private ProgressDialog dialog;
+		private ArrayList<Respuesta> respuestas = new ArrayList<Respuesta>();
+		private JSONObject responseObject;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(EncuestaActivity.this, "", "Guardando respuestas...", true);	
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			respuestas = listadoRespuestas;
+			Log.d("Size", String.valueOf(respuestas.size()));
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(SERVICE_BASE_URL + "encuestas/guardar/" + SERVICE_FORMAT);
+			post.setHeader("content-type", "application/json");
+			
+			JSONObject listaPreguntas = new JSONObject();
+			JSONObject listaDetalles = new JSONObject();
+			Respuesta singleResp = respuestas.get(0);
+			int idEncuesta = singleResp.getEncuesta();
+			Context context = EncuestaActivity.this;
+			SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+			int idTienda = preferences.getInt("TIENDA_ID", 0);
+			for(int i = 0; i < respuestas.size(); i++) {
+				Respuesta singleRespObj = respuestas.get(i);
+				try {
+					listaPreguntas.put(String.valueOf(i), singleRespObj.getPregunta());
+					listaDetalles.put(String.valueOf(i), singleRespObj.getDetalle());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			JSONObject respuestasInfoObject = new JSONObject();
+			try {
+				respuestasInfoObject.put("encuesta", idEncuesta);
+				respuestasInfoObject.put("preguntas", listaPreguntas);
+				respuestasInfoObject.put("detalles", listaDetalles);
+				respuestasInfoObject.put("tienda", idTienda);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				StringEntity entity = new StringEntity(respuestasInfoObject.toString());
+				post.setEntity(entity);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				HttpResponse resp = client.execute(post);
+				return EntityUtils.toString(resp.getEntity());
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			try {
+				responseObject = new JSONObject(result);
+				if(responseObject.getString("status").equalsIgnoreCase("ERROR")) {
+					Toast.makeText(EncuestaActivity.this, responseObject.getString("response"), Toast.LENGTH_LONG).show();
+				} else {
+					JSONArray idsResultantes = responseObject.getJSONArray("response");
+					int[] ids = new int[idsResultantes.length()];
+					for(int i = 0; i < idsResultantes.length(); i++) {
+						ids[i] = idsResultantes.getInt(i);
+					}
+					Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+					intent.putExtra("ids", ids);
+					startActivity(intent);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			Log.d("Resultado", result);
+			dialog.dismiss();
 		}
 		
 	}
