@@ -191,39 +191,6 @@ public class EncuestaActivity extends Activity {
 						        5));
 						scroll.addView(v);
 					}
-				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
-					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
-					for(int i = 0; i < opcionesPreguntaArray.length(); i++) {
-						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(i);
-						if(!optionValues.getString("valor").equalsIgnoreCase("OTROS")) {
-							CheckBox cb = new CheckBox(this);
-							cb.setText(String.valueOf(i + 1) + ". " + optionValues.getString("nombre"));
-							cb.setBackgroundResource(R.drawable.rounded_bg_edittext);
-							cb.setTextColor(Color.BLACK);
-							scroll.addView(cb);
-							View v = new View(this);
-							v.setLayoutParams(new ViewGroup.LayoutParams(
-							        ViewGroup.LayoutParams.WRAP_CONTENT,
-							        5));
-							scroll.addView(v);
-						} else {
-							indiceOtros = i;
-						}
-						
-					}
-					if(indiceOtros != -1) {
-						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
-						campoRespuesta = new EditText(this);
-						campoRespuesta.setHint(optionValues.getString("nombre"));
-						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
-						campoRespuesta.setTextColor(Color.BLACK);
-						scroll.addView(campoRespuesta);
-						View v = new View(this);
-						v.setLayoutParams(new ViewGroup.LayoutParams(
-						        ViewGroup.LayoutParams.WRAP_CONTENT,
-						        5));
-						scroll.addView(v);
-					}	
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 					
 					LinearLayout contenedorCaras = new LinearLayout(this);
@@ -392,8 +359,6 @@ public class EncuestaActivity extends Activity {
 									enabled = true;
 								}
 							}						
-						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
-							
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
