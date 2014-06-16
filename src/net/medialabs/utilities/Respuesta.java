@@ -4,13 +4,11 @@ public class Respuesta {
 	
 	private int encuesta;
 	private int pregunta;
-	private int opcion;
 	private String detalle;
 	
-	public Respuesta(int encuesta, int pregunta, int opcion, String detalle) {
+	public Respuesta(int encuesta, int pregunta, String detalle) {
 		this.encuesta = encuesta;
 		this.pregunta = pregunta;
-		this.opcion = opcion;
 		this.detalle = detalle;
 	}
 	
@@ -21,10 +19,7 @@ public class Respuesta {
 	private int getPregunta() {
 		return pregunta;
 	}
-	
-	private int getOpcion() {
-		return opcion;
-	}
+
 	
 	private String getDetalle() {
 		return detalle;

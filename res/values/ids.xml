@@ -2,5 +2,25 @@
 <resources>
 	<item name="campoRespuesta" type="id" />
 	<item name="spinnerRespuesta" type="id" />
-	<item name="radioGroupRespuesta" type="id" />    
+	<item name="radioGroupRespuesta" type="id" />
+	<item name="radio1" type="id" />
+	<item name="radio2" type="id" />
+	<item name="radio3" type="id" />
+	<item name="radio4" type="id" />
+	<item name="radio5" type="id" />
+	<item name="radio6" type="id" />
+	<item name="radio7" type="id" />
+	<item name="radio8" type="id" />
+	<item name="radio9" type="id" />
+	<item name="radio10" type="id" />
+	<item name="radio11" type="id" />
+	<item name="radio12" type="id" />
+	<item name="radio13" type="id" />
+	<item name="radio14" type="id" />
+	<item name="radio15" type="id" />
+	<item name="radio16" type="id" />
+	<item name="radio17" type="id" />
+	<item name="radio18" type="id" />
+	<item name="radio19" type="id" />
+	<item name="radio20" type="id" />	    
 </resources>

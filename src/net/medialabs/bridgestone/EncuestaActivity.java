@@ -158,6 +158,9 @@ public class EncuestaActivity extends Activity {
 							rb[i] = new RadioButton(this);
 							rb[i].setText(optionValues.getString("nombre"));
 							rb[i].setTextColor(Color.BLACK);
+							String radioId = "radio" + String.valueOf(i+1);
+							int resId = getResources().getIdentifier(radioId, "id", getPackageName());
+							rb[i].setId(resId);
 							rb[i].setBackgroundResource(R.drawable.rounded_bg_edittext);
 							rb[i].setLayoutParams(new ViewGroup.LayoutParams(
 							        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -249,6 +252,98 @@ public class EncuestaActivity extends Activity {
 					        ViewGroup.LayoutParams.WRAP_CONTENT,
 					        5));
 					contenedorPreguntas.addView(v);
+					
+					caraVerde.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							numeroPregunta++;
+							if(numeroPregunta < preguntasArray.length()) {
+								JSONObject encuestaInfo;
+								try {
+									encuestaInfo = encuesta.getJSONObject("encuesta");
+									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+									detalle = "BUENO";
+									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+									listadoRespuestas.add(respuesta);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+							} else {
+								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+								startActivity(intent);
+							}
+						}
+					});
+					
+					caraAmarilla.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							numeroPregunta++;
+							if(numeroPregunta < preguntasArray.length()) {
+								JSONObject encuestaInfo;
+								try {
+									encuestaInfo = encuesta.getJSONObject("encuesta");
+									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+									detalle = "REGULAR";
+									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+									listadoRespuestas.add(respuesta);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+							} else {
+								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+								startActivity(intent);
+							}
+						}
+					});
+					
+					caraNaranja.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							numeroPregunta++;
+							if(numeroPregunta < preguntasArray.length()) {
+								JSONObject encuestaInfo;
+								try {
+									encuestaInfo = encuesta.getJSONObject("encuesta");
+									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+									detalle = "MALO";
+									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+									listadoRespuestas.add(respuesta);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+							} else {
+								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+								startActivity(intent);
+							}
+						}
+					});
+					
+					caraRoja.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							numeroPregunta++;
+							if(numeroPregunta < preguntasArray.length()) {
+								JSONObject encuestaInfo;
+								try {
+									encuestaInfo = encuesta.getJSONObject("encuesta");
+									idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+									idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+									detalle = "MUY MALO";
+									Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
+									listadoRespuestas.add(respuesta);
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+							} else {
+								Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
+								startActivity(intent);
+							}
+						}
+					});
 				}
 				
 			} 
@@ -262,15 +357,12 @@ public class EncuestaActivity extends Activity {
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				boolean enabled = false;
-				numeroPregunta++;
 				if(numeroPregunta < preguntasArray.length()) {
-					/*
 					try {
 						if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
 							EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
 							detalle = campoR.getText().toString();
 							if(!detalle.equals("")) {
-								opcion = 0;
 								enabled = true;
 							}
 						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
@@ -279,25 +371,46 @@ public class EncuestaActivity extends Activity {
 							if(selected != Spinner.INVALID_POSITION) {
 								JSONObject optionValues = opcionesPreguntaArray.getJSONObject(selected);
 								enabled = true;
-								opcion = Integer.parseInt(optionValues.getString("id"));
 								detalle = optionValues.getString("nombre");
-							}	
+							} else {
+								EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+								detalle = campoR.getText().toString();
+								if(!detalle.equals("")) {
+									enabled = true;
+								}
+							}
 						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
-							
+							RadioGroup radioG = (RadioGroup) findViewById(R.id.radioGroupRespuesta);
+							int radioSelectedId = radioG.getCheckedRadioButtonId();
+							if(radioSelectedId != -1) {
+								RadioButton radioB = (RadioButton) findViewById(radioSelectedId);
+								detalle = radioB.getText().toString();
+							} else {
+								EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+								detalle = campoR.getText().toString();
+								if(!detalle.equals("")) {
+									enabled = true;
+								}
+							}						
 						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("CHECKBOX")) {
-							
-						} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 							
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 					if(enabled) {
+						try {
+							JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+							idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+							idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+							Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+							listadoRespuestas.add(resp);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 						numeroPregunta++;
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-					} */
-					
-					mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+					} 
 				} else {
 					Intent intent = new Intent(EncuestaActivity.this, RegistroActivity.class);
 					startActivity(intent);
