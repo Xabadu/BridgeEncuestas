@@ -30,8 +30,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -166,7 +168,7 @@ public class EncuestaActivity extends Activity {
 							rb[i].setId(resId);
 							rb[i].setBackgroundResource(R.drawable.rounded_bg_edittext);
 							rb[i].setButtonDrawable(android.R.color.transparent);
-							rb[i].setPadding(31, 0, 0, 0);
+							rb[i].setPadding(31, 5, 0, 5);
 							rb[i].setLayoutParams(new ViewGroup.LayoutParams(
 							        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 							rg.addView(rb[i]);
@@ -189,7 +191,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setHint(optionValues.getString("nombre"));
 						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
 						campoRespuesta.setTextColor(Color.BLACK);
-						campoRespuesta.setPadding(31, 0, 0, 0);
+						campoRespuesta.setPadding(31, 5, 0, 5);
 						scroll.addView(campoRespuesta);
 						View v = new View(this);
 						v.setLayoutParams(new ViewGroup.LayoutParams(
@@ -203,17 +205,17 @@ public class EncuestaActivity extends Activity {
 					contenedorCaras.setOrientation(LinearLayout.HORIZONTAL);
 					contenedorCaras.setBackgroundResource(R.drawable.rounded_bg_edittext);
 					contenedorCaras.setGravity(Gravity.CENTER);
-					ImageButton caraVerde = new ImageButton(this);
-					caraVerde.setImageResource(R.drawable.img_face_green);
+					final ImageButton caraVerde = new ImageButton(this);
+					caraVerde.setImageResource(R.drawable.green_face_btn);
 					caraVerde.setBackgroundColor(Color.TRANSPARENT);
-					ImageButton caraAmarilla = new ImageButton(this);
-					caraAmarilla.setImageResource(R.drawable.img_face_yellow);
+					final ImageButton caraAmarilla = new ImageButton(this);
+					caraAmarilla.setImageResource(R.drawable.yellow_face_btn);
 					caraAmarilla.setBackgroundColor(Color.TRANSPARENT);
-					ImageButton caraNaranja = new ImageButton(this);
-					caraNaranja.setImageResource(R.drawable.img_face_orange);
+					final ImageButton caraNaranja = new ImageButton(this);
+					caraNaranja.setImageResource(R.drawable.orange_face_btn);
 					caraNaranja.setBackgroundColor(Color.TRANSPARENT);
-					ImageButton caraRoja = new ImageButton(this);
-					caraRoja.setImageResource(R.drawable.img_face_red);
+					final ImageButton caraRoja = new ImageButton(this);
+					caraRoja.setImageResource(R.drawable.red_face_btn);
 					caraRoja.setBackgroundColor(Color.TRANSPARENT);
 					contenedorCaras.addView(caraVerde);
 					contenedorCaras.addView(caraAmarilla);
@@ -226,97 +228,54 @@ public class EncuestaActivity extends Activity {
 					        5));
 					contenedorPreguntas.addView(v);
 					
-					caraVerde.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-							numeroPregunta++;
-							JSONObject encuestaInfo;
-							try {
-								encuestaInfo = encuesta.getJSONObject("encuesta");
-								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-								detalle = "BUENO";
-								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-								listadoRespuestas.add(respuesta);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							if(numeroPregunta < preguntasArray.length()) {
-								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-							} else {
-								GuardarEncuesta guardar = new GuardarEncuesta();
-								guardar.execute();
-							}
+					caraVerde.setOnTouchListener(new OnTouchListener() {
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							detalle = "BUENO";
+							caraAmarilla.setPressed(false);
+							caraNaranja.setPressed(false);
+							caraRoja.setPressed(false);
+							caraVerde.setPressed(true);
+							return true;
 						}
 					});
 					
-					caraAmarilla.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-							numeroPregunta++;
-							JSONObject encuestaInfo;
-							try {
-								encuestaInfo = encuesta.getJSONObject("encuesta");
-								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-								detalle = "REGULAR";
-								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-								listadoRespuestas.add(respuesta);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							if(numeroPregunta <= preguntasArray.length()) {
-								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-							} else {
-								GuardarEncuesta guardar = new GuardarEncuesta();
-								guardar.execute();
-							}
+					caraAmarilla.setOnTouchListener(new OnTouchListener() {
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							detalle = "REGULAR";
+							caraAmarilla.setPressed(true);
+							caraNaranja.setPressed(false);
+							caraRoja.setPressed(false);
+							caraVerde.setPressed(false);
+							return true;
 						}
 					});
 					
-					caraNaranja.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-							numeroPregunta++;
-							JSONObject encuestaInfo;
-							try {
-								encuestaInfo = encuesta.getJSONObject("encuesta");
-								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-								detalle = "MALO";
-								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-								listadoRespuestas.add(respuesta);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							if(numeroPregunta <= preguntasArray.length()) {
-								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-							} else {
-								GuardarEncuesta guardar = new GuardarEncuesta();
-								guardar.execute();
-							}
+					caraNaranja.setOnTouchListener(new OnTouchListener() {
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							detalle = "MALO";
+							caraAmarilla.setPressed(false);
+							caraNaranja.setPressed(true);
+							caraRoja.setPressed(false);
+							caraVerde.setPressed(false);
+							return true;
 						}
 					});
 					
-					caraRoja.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-							numeroPregunta++;
-							JSONObject encuestaInfo;
-							try {
-								encuestaInfo = encuesta.getJSONObject("encuesta");
-								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
-								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
-								detalle = "MUY MALO";
-								Respuesta respuesta = new Respuesta(idEncuesta, idPregunta, detalle);
-								listadoRespuestas.add(respuesta);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							if(numeroPregunta <= preguntasArray.length()) {
-								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-							} else {
-								GuardarEncuesta guardar = new GuardarEncuesta();
-								guardar.execute();
-							}
+					caraRoja.setOnTouchListener(new OnTouchListener() {
+						@Override
+						public boolean onTouch(View v, MotionEvent event) {
+							detalle = "MUY MALO";
+							caraAmarilla.setPressed(false);
+							caraNaranja.setPressed(false);
+							caraRoja.setPressed(true);
+							caraVerde.setPressed(false);
+							return true;
 						}
 					});
+
 				}
 				
 			} 
@@ -378,6 +337,10 @@ public class EncuestaActivity extends Activity {
 								enabled = true;
 							}
 						}						
+					} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
+						if(!detalle.equals("")) {
+							enabled = true;
+						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -394,7 +357,6 @@ public class EncuestaActivity extends Activity {
 				
 				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
-						
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 					} else {
 						numeroPregunta--;
