@@ -165,6 +165,8 @@ public class EncuestaActivity extends Activity {
 							int resId = getResources().getIdentifier(radioId, "id", getPackageName());
 							rb[i].setId(resId);
 							rb[i].setBackgroundResource(R.drawable.rounded_bg_edittext);
+							rb[i].setButtonDrawable(android.R.color.transparent);
+							rb[i].setPadding(31, 0, 0, 0);
 							rb[i].setLayoutParams(new ViewGroup.LayoutParams(
 							        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 							rg.addView(rb[i]);
@@ -187,6 +189,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setHint(optionValues.getString("nombre"));
 						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
 						campoRespuesta.setTextColor(Color.BLACK);
+						campoRespuesta.setPadding(31, 0, 0, 0);
 						scroll.addView(campoRespuesta);
 						View v = new View(this);
 						v.setLayoutParams(new ViewGroup.LayoutParams(
