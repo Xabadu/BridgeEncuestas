@@ -521,6 +521,7 @@ public class EncuestaActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
+			Log.d("Resultado", result);
 			try {
 				responseObject = new JSONObject(result);
 				if(responseObject.getString("status").equalsIgnoreCase("ERROR")) {
@@ -538,7 +539,7 @@ public class EncuestaActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			Log.d("Resultado", result);
+			
 			dialog.dismiss();
 		}
 		

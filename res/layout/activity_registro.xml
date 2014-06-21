@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgTopbar"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/img_container_registro"
@@ -45,11 +45,11 @@
 
         <TextView
             android:id="@+id/registerContainerText"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/registerContainerHeader"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
             android:text="@string/text_register"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -76,14 +76,12 @@
 
         <EditText
             android:id="@+id/registroNombre"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:layout_below="@+id/registerContainerHeader"
-            android:layout_alignParentRight="true"
+            android:layout_below="@+id/registerContainerText"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="220dp"
-            android:layout_marginRight="20dp"
             android:hint="Nombre (obligatorio)"
             android:textColor="@android:color/black"
             android:padding="3dp"
@@ -96,16 +94,14 @@
         
         <EditText
             android:id="@+id/registroApellidos"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
             android:layout_below="@+id/registroNombre"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="1dp"
             android:textColor="@android:color/black"
-            android:layout_marginLeft="220dp"
-            android:layout_marginRight="20dp"
             android:hint="Apellidos (obligatorio)"
             android:padding="3dp" >
        
@@ -114,16 +110,14 @@
         
         <EditText
             android:id="@+id/registroCorreo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
             android:layout_below="@+id/registroApellidos"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="1dp"
-            android:layout_marginLeft="220dp"
             android:textColor="@android:color/black"
-            android:layout_marginRight="20dp"
             android:hint="Correo (obligatorio)"
             android:padding="3dp" >
        
@@ -132,16 +126,14 @@
         
         <EditText
             android:id="@+id/registroRut"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
             android:layout_below="@+id/registroCorreo"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:textColor="@android:color/black"
             android:layout_marginTop="1dp"
-            android:layout_marginLeft="270dp"
-            android:layout_marginRight="50dp"
             android:hint="RUT"
             android:padding="3dp" >
        
@@ -150,16 +142,14 @@
         
         <EditText
             android:id="@+id/registroPatente"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
             android:layout_below="@+id/registroRut"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:textColor="@android:color/black"
             android:layout_marginTop="1dp"
-            android:layout_marginLeft="270dp"
-            android:layout_marginRight="50dp"
             android:hint="Patente (sin guiones)"
             android:padding="3dp">
        
@@ -168,16 +158,14 @@
         
         <EditText
             android:id="@+id/registroTelefono"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:background="@drawable/rounded_bg_edittext"
             android:layout_below="@+id/registroPatente"
-            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="1dp"
             android:textColor="@android:color/black"
-            android:layout_marginLeft="270dp"
-            android:layout_marginRight="50dp"
             android:hint="Telefono"
             android:padding="3dp">
        
