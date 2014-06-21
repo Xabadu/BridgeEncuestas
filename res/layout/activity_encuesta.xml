@@ -74,6 +74,7 @@
                             android:background="@drawable/rounded_bg_preguntas"
                             android:padding="5dp"
                             android:text="TextView"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
 
