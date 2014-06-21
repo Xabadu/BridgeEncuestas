@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -199,6 +200,14 @@ public class EncuestaActivity extends Activity {
 						        5));
 						scroll.addView(v);
 					}
+					final RadioGroup tempRg = rg;
+					rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						public void onCheckedChanged(RadioGroup group, int checkedId) {
+							RadioButton radioB = (RadioButton) findViewById(checkedId);
+							radioB.setBackgroundColor(Color.LTGRAY);
+						}
+					});
+					
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 					
 					LinearLayout contenedorCaras = new LinearLayout(this);
