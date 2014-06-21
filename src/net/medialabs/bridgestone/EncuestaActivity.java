@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -74,8 +75,6 @@ public class EncuestaActivity extends Activity {
 	}
 	
 	private void mostrarEncuesta(final JSONObject encuesta, int numero, ArrayList<Respuesta> resp) {
-		Log.d("Total", String.valueOf(resp.size()));
-		//listadoRespuestas.clear();
 		listadoRespuestas = resp;
 		setContentView(R.layout.activity_encuesta);
 		EditText campoRespuesta = null;
@@ -90,6 +89,7 @@ public class EncuestaActivity extends Activity {
 		detalle = "";
 		try {
 			preguntasArray = encuesta.getJSONArray("preguntas");
+			
 			preguntaSimple = preguntasArray.getJSONObject(numeroPregunta);
 			enunciadoPregunta = (TextView) findViewById(R.id.tituloPregunta);
 			enunciadoPregunta.setText(String.valueOf(numeroPregunta+1) + ".-" + preguntaSimple.getString("enunciado"));
@@ -317,9 +317,21 @@ public class EncuestaActivity extends Activity {
 				}
 				
 			} 
+			LinearLayout circulosLayout = (LinearLayout) findViewById(R.id.contenedorCirculos);
 			
+			for(int i = 0; i < preguntasArray.length(); i++) {
+				ImageView circleImg = new ImageView(this);
+				if(i == numeroPregunta) {
+					circleImg.setBackgroundResource(R.drawable.circle_white);
+				} else if(i - 1 == numeroPregunta || i + 1 == numeroPregunta) {
+					circleImg.setBackgroundResource(R.drawable.circle_light_grey);
+				} else {
+					circleImg.setBackgroundResource(R.drawable.circle_dark_grey);
+				}
 				
-			
+				circulosLayout.addView(circleImg);
+			}
+						
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
