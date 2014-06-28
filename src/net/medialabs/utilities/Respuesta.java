@@ -9,7 +9,7 @@ public class Respuesta {
 	public Respuesta(int encuesta, int pregunta, String detalle) {
 		this.encuesta = encuesta;
 		this.pregunta = pregunta;
-		this.detalle = detalle;
+		this.detalle = limpiarDetalle(detalle);
 	}
 	
 	public int getEncuesta() {
@@ -25,5 +25,17 @@ public class Respuesta {
 		return detalle;
 	}
 	
-
+	public String limpiarDetalle(String d) {
+		
+		String cadenaSucia = "‡ˆŠ‘’“•—˜šœu–çË€ƒéèêíìîñ…òô†„‚";
+		String cadenaLimpia = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+		String salida = d;
+		
+		for(int i = 0; i < cadenaSucia.length(); i++) {
+			salida = salida.replace(cadenaSucia.charAt(i), cadenaLimpia.charAt(i));
+		}
+		
+		return salida;
+		
+	}
 }
