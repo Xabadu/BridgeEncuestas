@@ -33,6 +33,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -183,6 +184,7 @@ public class EncuestaActivity extends Activity {
 						}
 						
 					}
+					final RadioGroup tempRg = rg;
 					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
 					scroll.addView(rg);
 					if(indiceOtros != -1) {
@@ -199,10 +201,39 @@ public class EncuestaActivity extends Activity {
 						        ViewGroup.LayoutParams.WRAP_CONTENT,
 						        5));
 						scroll.addView(v);
+						
+						campoRespuesta.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+							@Override
+							public void onFocusChange(View arg0, boolean arg1) {
+								for(int i = 0; i < tempRg.getChildCount(); i++) {
+									View view = tempRg.getChildAt(i);
+									if(view instanceof RadioButton) {
+										RadioButton tempRb = (RadioButton) view;
+										tempRb.setBackgroundResource(R.drawable.rounded_bg_edittext);
+										tempRb.setButtonDrawable(android.R.color.transparent);
+										tempRb.setPadding(31, 5, 0, 5);
+									}								
+								}
+							}
+							
+						});
+						
 					}
-					final RadioGroup tempRg = rg;
+					
+					
+					
 					rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						public void onCheckedChanged(RadioGroup group, int checkedId) {
+							for(int i = 0; i < tempRg.getChildCount(); i++) {
+								View view = tempRg.getChildAt(i);
+								if(view instanceof RadioButton) {
+									RadioButton tempRb = (RadioButton) view;
+									tempRb.setBackgroundResource(R.drawable.rounded_bg_edittext);
+									tempRb.setButtonDrawable(android.R.color.transparent);
+									tempRb.setPadding(31, 5, 0, 5);
+								}								
+							}
 							RadioButton radioB = (RadioButton) findViewById(checkedId);
 							radioB.setBackgroundColor(Color.LTGRAY);
 						}
