@@ -66,6 +66,16 @@ public class RegistroActivity extends Activity {
 						!registroCorreo.getText().toString().equals("")) {
 					RegistrarUsuario usuario = new RegistrarUsuario();
 					usuario.execute();
+				} else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
+			        builder.setMessage("Debe completar los datos obligatorios.")
+			               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+			                   public void onClick(DialogInterface dialog, int id) {
+
+			                   }
+			               });
+			        builder.create();
+			        builder.show();
 				}
 			}
 		});
