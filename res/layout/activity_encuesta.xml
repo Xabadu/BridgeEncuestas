@@ -4,12 +4,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_encuestas"
     tools:context=".EncuestaActivity" >
-
+	
+    <View 
+        android:id="@+id/superTopView"
+    	android:layout_width="match_parent"
+    	android:layout_height="5dp"
+    	android:background="#24262b"
+    />
+    
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp" >
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/superTopView" >
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -3,6 +3,8 @@ package net.medialabs.bridgestone;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import net.medialabs.utilities.Validador;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -39,6 +41,9 @@ public class RegistroActivity extends Activity {
 	ImageButton btnCancelar;
 	ImageButton btnGuardar;
 	private int[] ids;
+	private boolean enabled;
+	private String mensaje;
+	Validador validador = new Validador(this);
 	
 	private static final String SERVICE_BASE_URL = "http://www.solucionesparche.com/labs/bridgestone/index.php/servicios/";
 	private static final String SERVICE_FORMAT = "format/json/";
@@ -64,8 +69,37 @@ public class RegistroActivity extends Activity {
 				if(!registroNombre.getText().toString().equals("") && 
 						!registroApellidos.getText().toString().equals("") && 
 						!registroCorreo.getText().toString().equals("")) {
-					RegistrarUsuario usuario = new RegistrarUsuario();
-					usuario.execute();
+					enabled = true;
+					if(!registroRut.getText().toString().equals("") && !validador.rut(registroRut.getText().toString())) {
+						enabled = false;
+						mensaje = "Debe ingresar un RUT válido.";
+					}
+					if(!validador.email(registroCorreo.getText().toString())) {
+						enabled = false;
+						mensaje = "Debe ingresar un correo válido.";
+					}
+					if(!registroTelefono.getText().toString().equals("") && !validador.telefono(registroTelefono.getText().toString())) {
+						enabled = false;
+						mensaje = "Debe ingresar un teléfono de 8 dígitos máximo (Sin 0).";
+					}
+					if(!registroPatente.getText().toString().equals("") && !validador.patente(registroPatente.getText().toString())) {
+						enabled = false;
+						mensaje = "La patente contiene caracteres inválidos (solo letras y números).";
+					}
+					if(enabled) {
+						RegistrarUsuario usuario = new RegistrarUsuario();
+						usuario.execute();
+					} else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
+				        builder.setMessage(mensaje)
+				               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+				                   public void onClick(DialogInterface dialog, int id) {
+
+				                   }
+				               });
+				        builder.create();
+				        builder.show();
+					}
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
 			        builder.setMessage("Debe completar los datos obligatorios.")
