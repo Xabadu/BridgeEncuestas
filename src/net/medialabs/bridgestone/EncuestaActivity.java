@@ -20,8 +20,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -400,6 +402,15 @@ public class EncuestaActivity extends Activity {
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 					} else {
 						numeroPregunta--;
+						AlertDialog.Builder builder = new AlertDialog.Builder(EncuestaActivity.this);
+				        builder.setMessage("Debe seleccionar una respuesta.")
+				               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+				                   public void onClick(DialogInterface dialog, int id) {
+
+				                   }
+				               });
+				        builder.create();
+				        builder.show();
 					}
 					
 				} else {
