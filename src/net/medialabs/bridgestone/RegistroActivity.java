@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class RegistroActivity extends Activity {
@@ -40,6 +41,7 @@ public class RegistroActivity extends Activity {
 	EditText registroTelefono;
 	ImageButton btnCancelar;
 	ImageButton btnGuardar;
+	ImageView topBar;
 	private int[] ids;
 	private boolean enabled;
 	private String mensaje;
@@ -55,6 +57,8 @@ public class RegistroActivity extends Activity {
 		Intent intent = getIntent();
 		ids = intent.getIntArrayExtra("ids");
 		
+		topBar = (ImageView) findViewById(R.id.imgTopbar);
+		
 		registroNombre = (EditText) findViewById(R.id.registroNombre);
 		registroApellidos = (EditText) findViewById(R.id.registroApellidos);
 		registroCorreo = (EditText) findViewById(R.id.registroCorreo);
@@ -63,6 +67,14 @@ public class RegistroActivity extends Activity {
 		registroTelefono = (EditText) findViewById(R.id.registroTelefono);
 		btnCancelar = (ImageButton) findViewById(R.id.btnCancelarRegistro);
 		btnGuardar = (ImageButton) findViewById(R.id.btnGuardarRegistro);
+		
+		topBar.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
+				startActivity(intent);
+				RegistroActivity.this.finish();
+			}
+		});
 		
 		btnGuardar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
