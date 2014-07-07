@@ -54,17 +54,16 @@ public final class R {
         public static final int yellow_face_btn=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f050032;
-        public static final int btnCancelarRegistro=0x7f05002a;
-        public static final int btnGuardarRegistro=0x7f05002b;
+        public static final int action_settings=0x7f050031;
+        public static final int btnCancelarRegistro=0x7f050029;
+        public static final int btnGuardarRegistro=0x7f05002a;
         public static final int btnSiguiente=0x7f050025;
         public static final int btnVolver=0x7f050024;
         public static final int campoRespuesta=0x7f050000;
         public static final int contenedorCirculos=0x7f050026;
         public static final int contenedorPreguntas=0x7f050020;
         public static final int guardarDatosBtn=0x7f05001a;
-        public static final int imageView1=0x7f05001d;
-        public static final int imgTopbar=0x7f050027;
+        public static final int imgTopbar=0x7f05001d;
         public static final int linearInsideContenedor=0x7f050022;
         public static final int listadoTiendas=0x7f050019;
         public static final int listadoTiendasLabel=0x7f050018;
@@ -89,14 +88,14 @@ public final class R {
         public static final int radio8=0x7f05000a;
         public static final int radio9=0x7f05000b;
         public static final int radioGroupRespuesta=0x7f050002;
-        public static final int registerContainerHeader=0x7f050028;
-        public static final int registerContainerText=0x7f050029;
-        public static final int registroApellidos=0x7f05002d;
-        public static final int registroCorreo=0x7f05002e;
-        public static final int registroNombre=0x7f05002c;
-        public static final int registroPatente=0x7f050030;
-        public static final int registroRut=0x7f05002f;
-        public static final int registroTelefono=0x7f050031;
+        public static final int registerContainerHeader=0x7f050027;
+        public static final int registerContainerText=0x7f050028;
+        public static final int registroApellidos=0x7f05002c;
+        public static final int registroCorreo=0x7f05002d;
+        public static final int registroNombre=0x7f05002b;
+        public static final int registroPatente=0x7f05002f;
+        public static final int registroRut=0x7f05002e;
+        public static final int registroTelefono=0x7f050030;
         public static final int scrollContenedor=0x7f050021;
         public static final int scrollView1=0x7f05001c;
         public static final int spinnerRespuesta=0x7f050001;
