@@ -69,6 +69,7 @@ public class EncuestaActivity extends Activity {
 	
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
+	ImageView topBar;
 	
 	TextView enunciadoPregunta;
 
@@ -86,6 +87,9 @@ public class EncuestaActivity extends Activity {
 		EditText campoRespuesta = null;
 		LinearLayout contenedorPreguntas;
 		Spinner listaRespuestas;
+		
+		topBar = (ImageView) findViewById(R.id.imgTopbar);
+		
 		numeroPregunta = numero;
 		indiceOtros = -1;
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
@@ -339,6 +343,13 @@ public class EncuestaActivity extends Activity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		topBar.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				EncuestaActiva encuesta = new EncuestaActiva(EncuestaActivity.this);
+				encuesta.execute();
+			}
+		});
 		
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
