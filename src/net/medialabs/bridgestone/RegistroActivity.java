@@ -209,7 +209,7 @@ public class RegistroActivity extends Activity {
 				JSONObject resultObject = new JSONObject(result);
 				if(resultObject.getString("status").equalsIgnoreCase("OK")) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
-			        builder.setMessage("Cliente registrado exitosamente.")
+			        builder.setMessage("Muchas gracias por completar nuestra encuesta")
 			               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
 			                   public void onClick(DialogInterface dialog, int id) {
 			                	   Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
