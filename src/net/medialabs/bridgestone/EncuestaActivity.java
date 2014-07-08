@@ -38,6 +38,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -46,6 +48,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,7 +90,7 @@ public class EncuestaActivity extends Activity {
 		EditText campoRespuesta = null;
 		LinearLayout contenedorPreguntas;
 		Spinner listaRespuestas;
-		
+				
 		topBar = (ImageView) findViewById(R.id.imgTopbar);
 		
 		numeroPregunta = numero;
@@ -410,6 +413,11 @@ public class EncuestaActivity extends Activity {
 				
 				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
+						RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+						Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+						animation.reset();
+						rl.clearAnimation();
+						rl.startAnimation(animation);
 						mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 					} else {
 						numeroPregunta--;

@@ -8,6 +8,10 @@
 package net.medialabs.bridgestone;
 
 public final class R {
+    public static final class anim {
+        public static final int alpha=0x7f040000;
+        public static final int alphaout=0x7f040001;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -17,8 +21,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int bg_encuestas=0x7f020000;
@@ -54,56 +58,57 @@ public final class R {
         public static final int yellow_face_btn=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f050031;
-        public static final int btnCancelarRegistro=0x7f050029;
-        public static final int btnGuardarRegistro=0x7f05002a;
-        public static final int btnSiguiente=0x7f050025;
-        public static final int btnVolver=0x7f050024;
-        public static final int campoRespuesta=0x7f050000;
-        public static final int contenedorCirculos=0x7f050026;
-        public static final int contenedorPreguntas=0x7f050020;
-        public static final int guardarDatosBtn=0x7f05001a;
-        public static final int imgTopbar=0x7f05001d;
-        public static final int linearInsideContenedor=0x7f050022;
-        public static final int listadoTiendas=0x7f050019;
-        public static final int listadoTiendasLabel=0x7f050018;
-        public static final int radio1=0x7f050003;
-        public static final int radio10=0x7f05000c;
-        public static final int radio11=0x7f05000d;
-        public static final int radio12=0x7f05000e;
-        public static final int radio13=0x7f05000f;
-        public static final int radio14=0x7f050010;
-        public static final int radio15=0x7f050011;
-        public static final int radio16=0x7f050012;
-        public static final int radio17=0x7f050013;
-        public static final int radio18=0x7f050014;
-        public static final int radio19=0x7f050015;
-        public static final int radio2=0x7f050004;
-        public static final int radio20=0x7f050016;
-        public static final int radio3=0x7f050005;
-        public static final int radio4=0x7f050006;
-        public static final int radio5=0x7f050007;
-        public static final int radio6=0x7f050008;
-        public static final int radio7=0x7f050009;
-        public static final int radio8=0x7f05000a;
-        public static final int radio9=0x7f05000b;
-        public static final int radioGroupRespuesta=0x7f050002;
-        public static final int registerContainerHeader=0x7f050027;
-        public static final int registerContainerText=0x7f050028;
-        public static final int registroApellidos=0x7f05002c;
-        public static final int registroCorreo=0x7f05002d;
-        public static final int registroNombre=0x7f05002b;
-        public static final int registroPatente=0x7f05002f;
-        public static final int registroRut=0x7f05002e;
-        public static final int registroTelefono=0x7f050030;
-        public static final int scrollContenedor=0x7f050021;
-        public static final int scrollView1=0x7f05001c;
-        public static final int spinnerRespuesta=0x7f050001;
-        public static final int superTopView=0x7f05001b;
-        public static final int textView1=0x7f05001e;
-        public static final int textView3=0x7f05001f;
-        public static final int tituloPregunta=0x7f050023;
-        public static final int topbar=0x7f050017;
+        public static final int action_settings=0x7f060032;
+        public static final int btnCancelarRegistro=0x7f06002a;
+        public static final int btnGuardarRegistro=0x7f06002b;
+        public static final int btnSiguiente=0x7f060026;
+        public static final int btnVolver=0x7f060025;
+        public static final int campoRespuesta=0x7f060000;
+        public static final int contenedorCirculos=0x7f060027;
+        public static final int contenedorPreguntas=0x7f060021;
+        public static final int guardarDatosBtn=0x7f06001a;
+        public static final int imgTopbar=0x7f06001e;
+        public static final int linearInsideContenedor=0x7f060023;
+        public static final int listadoTiendas=0x7f060019;
+        public static final int listadoTiendasLabel=0x7f060018;
+        public static final int radio1=0x7f060003;
+        public static final int radio10=0x7f06000c;
+        public static final int radio11=0x7f06000d;
+        public static final int radio12=0x7f06000e;
+        public static final int radio13=0x7f06000f;
+        public static final int radio14=0x7f060010;
+        public static final int radio15=0x7f060011;
+        public static final int radio16=0x7f060012;
+        public static final int radio17=0x7f060013;
+        public static final int radio18=0x7f060014;
+        public static final int radio19=0x7f060015;
+        public static final int radio2=0x7f060004;
+        public static final int radio20=0x7f060016;
+        public static final int radio3=0x7f060005;
+        public static final int radio4=0x7f060006;
+        public static final int radio5=0x7f060007;
+        public static final int radio6=0x7f060008;
+        public static final int radio7=0x7f060009;
+        public static final int radio8=0x7f06000a;
+        public static final int radio9=0x7f06000b;
+        public static final int radioGroupRespuesta=0x7f060002;
+        public static final int registerContainerHeader=0x7f060028;
+        public static final int registerContainerText=0x7f060029;
+        public static final int registroApellidos=0x7f06002d;
+        public static final int registroCorreo=0x7f06002e;
+        public static final int registroNombre=0x7f06002c;
+        public static final int registroPatente=0x7f060030;
+        public static final int registroRut=0x7f06002f;
+        public static final int registroTelefono=0x7f060031;
+        public static final int relativeBgEncuestas=0x7f06001b;
+        public static final int scrollContenedor=0x7f060022;
+        public static final int scrollView1=0x7f06001d;
+        public static final int spinnerRespuesta=0x7f060001;
+        public static final int superTopView=0x7f06001c;
+        public static final int textView1=0x7f06001f;
+        public static final int textView3=0x7f060020;
+        public static final int tituloPregunta=0x7f060024;
+        public static final int topbar=0x7f060017;
     }
     public static final class layout {
         public static final int activity_configuration=0x7f030000;
@@ -112,26 +117,26 @@ public final class R {
         public static final int activity_router=0x7f030003;
     }
     public static final class menu {
-        public static final int configuration=0x7f080000;
-        public static final int encuesta=0x7f080001;
-        public static final int registro=0x7f080002;
-        public static final int router=0x7f080003;
+        public static final int configuration=0x7f090000;
+        public static final int encuesta=0x7f090001;
+        public static final int registro=0x7f090002;
+        public static final int router=0x7f090003;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
-        public static final int breadcrumb_encuestas=0x7f060008;
-        public static final int breadcrumb_registro=0x7f06000b;
-        public static final int configuration_label=0x7f060007;
-        public static final int hello_world=0x7f060004;
-        public static final int label_encuesta_standard=0x7f060009;
-        public static final int label_registro=0x7f06000c;
-        public static final int save_data_btn=0x7f060006;
-        public static final int text_register=0x7f06000d;
-        public static final int title_activity_configuration=0x7f060003;
-        public static final int title_activity_encuesta=0x7f060005;
-        public static final int title_activity_registro=0x7f06000a;
-        public static final int title_activity_router=0x7f060002;
+        public static final int action_settings=0x7f070001;
+        public static final int app_name=0x7f070000;
+        public static final int breadcrumb_encuestas=0x7f070008;
+        public static final int breadcrumb_registro=0x7f07000b;
+        public static final int configuration_label=0x7f070007;
+        public static final int hello_world=0x7f070004;
+        public static final int label_encuesta_standard=0x7f070009;
+        public static final int label_registro=0x7f07000c;
+        public static final int save_data_btn=0x7f070006;
+        public static final int text_register=0x7f07000d;
+        public static final int title_activity_configuration=0x7f070003;
+        public static final int title_activity_encuesta=0x7f070005;
+        public static final int title_activity_registro=0x7f07000a;
+        public static final int title_activity_router=0x7f070002;
     }
     public static final class style {
         /** 
@@ -155,10 +160,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }

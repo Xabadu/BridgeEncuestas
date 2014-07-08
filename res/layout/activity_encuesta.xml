@@ -1,23 +1,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeBgEncuestas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_encuestas"
     tools:context=".EncuestaActivity" >
-	
-    <View 
+
+    <View
         android:id="@+id/superTopView"
-    	android:layout_width="match_parent"
-    	android:layout_height="5dp"
-    	android:background="#24262b"
-    />
-    
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#24262b" />
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_below="@+id/superTopView" >
+        android:layout_marginBottom="20dp" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,23 +41,23 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:text="@string/label_encuesta_standard"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_centerHorizontal="true"
                 android:textColor="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/contenedorPreguntas"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="80dp"
                 android:alpha="0.9"
                 android:background="@drawable/rounded_corner"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
-                android:layout_centerHorizontal="true"
                 android:paddingRight="10dp" >
 
                 <ScrollView
@@ -81,22 +80,20 @@
                             android:background="@drawable/rounded_bg_preguntas"
                             android:padding="5dp"
                             android:text="TextView"
+                            android:textColor="@android:color/black"
                             android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@android:color/black" />
-
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </ScrollView>
-
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/btnVolver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/contenedorPreguntas"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/contenedorPreguntas"
                 android:background="@android:color/transparent"
                 android:src="@drawable/btn_volver" />
 
@@ -104,10 +101,10 @@
                 android:id="@+id/btnSiguiente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/contenedorPreguntas"
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/contenedorPreguntas"
-                android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
                 android:src="@drawable/btn_siguiente" />
 
@@ -115,12 +112,11 @@
                 android:id="@+id/contenedorCirculos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_below="@+id/btnSiguiente"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp" >
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
 
