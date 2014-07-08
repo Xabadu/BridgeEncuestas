@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -70,6 +71,8 @@ public class EncuestaActivity extends Activity {
 	private String detalle = "";
 	private ArrayList<Respuesta> listadoRespuestas = new ArrayList<Respuesta>();
 	
+	Cronometro cronometro;
+	
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
 	ImageView topBar;
@@ -85,6 +88,8 @@ public class EncuestaActivity extends Activity {
 	}
 	
 	private void mostrarEncuesta(final JSONObject encuesta, int numero, ArrayList<Respuesta> resp) {
+		cronometro = new Cronometro(600000, 1000);
+		cronometro.start();
 		listadoRespuestas = resp;
 		setContentView(R.layout.activity_encuesta);
 		EditText campoRespuesta = null;
@@ -447,12 +452,34 @@ public class EncuestaActivity extends Activity {
 		});
 		
 	}
+	
+	public void touch() {
+		cronometro.start();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.encuesta, menu);
 		return true;
+	}
+	
+	public class Cronometro extends CountDownTimer {
+		
+		public Cronometro(long millisInFuture, long countDownInterval) {
+			super(millisInFuture, countDownInterval);
+		}
+		
+		@Override
+		public void onFinish() {
+			EncuestaActiva encuesta = new EncuestaActiva(EncuestaActivity.this);
+			encuesta.execute();
+		}
+		
+		@Override
+		public void onTick(long millisUntilFinished) {
+		}
+		
 	}
 	
 	private class EncuestaActiva extends AsyncTask<Void, Void, String> {
