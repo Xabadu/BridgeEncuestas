@@ -82,21 +82,27 @@ public class RegistroActivity extends Activity {
 						!registroApellidos.getText().toString().equals("") && 
 						!registroCorreo.getText().toString().equals("")) {
 					enabled = true;
-					if(!registroRut.getText().toString().equals("") && !validador.rut(registroRut.getText().toString())) {
-						enabled = false;
-						mensaje = "Debe ingresar un RUT válido.";
+					if(!registroRut.getText().toString().equals("")) {
+						if(!validador.rut(registroRut.getText().toString())) {
+							enabled = false;
+							mensaje = "Debe ingresar un RUT válido.";
+						}
 					}
 					if(!validador.email(registroCorreo.getText().toString())) {
 						enabled = false;
 						mensaje = "Debe ingresar un correo válido.";
 					}
-					if(!registroTelefono.getText().toString().equals("") && !validador.telefono(registroTelefono.getText().toString())) {
-						enabled = false;
-						mensaje = "Debe ingresar un teléfono de 8 dígitos máximo (Sin 0).";
+					if(!registroTelefono.getText().toString().equals("")) {
+						if(!validador.telefono(registroTelefono.getText().toString())) {
+							enabled = false;
+							mensaje = "Debe ingresar un teléfono de 8 dígitos máximo (Sin 0).";
+						}
 					}
-					if(!registroPatente.getText().toString().equals("") && !validador.patente(registroPatente.getText().toString())) {
-						enabled = false;
-						mensaje = "La patente contiene caracteres inválidos (solo letras y números).";
+					if(!registroPatente.getText().toString().equals("")) {
+						if(!validador.patente(registroPatente.getText().toString())) {
+							enabled = false;
+							mensaje = "La patente contiene caracteres inválidos (solo letras y números).";
+						}
 					}
 					if(enabled) {
 						RegistrarUsuario usuario = new RegistrarUsuario();
@@ -173,9 +179,21 @@ public class RegistroActivity extends Activity {
 				usuarioInfo.put("nombre", registroNombre.getText().toString());
 				usuarioInfo.put("apellidos", registroApellidos.getText().toString());
 				usuarioInfo.put("correo", registroCorreo.getText().toString());
-				usuarioInfo.put("rut", registroRut.getText().toString());
-				usuarioInfo.put("patente", registroPatente.getText().toString());
-				usuarioInfo.put("telefono", registroTelefono.getText().toString());
+				if(registroRut.getText().toString().equals("")) {
+					usuarioInfo.put("rut", "-");
+				} else {
+					usuarioInfo.put("rut", registroRut.getText().toString());
+				}
+				if(registroPatente.getText().toString().equals("")) {
+					usuarioInfo.put("patente", "-");
+				} else {
+					usuarioInfo.put("patente", registroPatente.getText().toString());
+				}
+				if(registroTelefono.getText().toString().equals("")) {
+					usuarioInfo.put("telefono", "-");
+				} else {
+					usuarioInfo.put("telefono", registroTelefono.getText().toString());
+				}
 				usuarioInfo.put("respuestas", listaIds);
 			} catch (JSONException e) {
 				e.printStackTrace();
