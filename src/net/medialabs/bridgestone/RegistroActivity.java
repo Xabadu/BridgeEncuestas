@@ -39,8 +39,11 @@ public class RegistroActivity extends Activity {
 	EditText registroRut;
 	EditText registroPatente;
 	EditText registroTelefono;
+	EditText validarRut;
 	ImageButton btnCancelar;
 	ImageButton btnGuardar;
+	ImageButton btnCancelarValidacion;
+	ImageButton btnGuardarValidacion;
 	ImageView topBar;
 	private int[] ids;
 	private boolean enabled;
@@ -53,9 +56,53 @@ public class RegistroActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_registro);
 		Intent intent = getIntent();
 		ids = intent.getIntArrayExtra("ids");
+		
+		validarCliente();
+		
+	}
+	
+	public void validarCliente() {
+		
+		setContentView(R.layout.activity_validar);
+		
+		btnCancelarValidacion = (ImageButton) findViewById(R.id.btnCancelarValidacion);
+		btnGuardarValidacion = (ImageButton) findViewById(R.id.btnGuardarValidacion);
+		validarRut = (EditText) findViewById(R.id.validarRut);
+		
+		btnGuardarValidacion.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				if(validarRut.getText().toString().equals("")) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
+			        builder.setMessage("Debe ingresar un Rut para validar.")
+			               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+			                   public void onClick(DialogInterface dialog, int id) {
+
+			                   }
+			               });
+			        builder.create();
+			        builder.show();
+				} else {
+					ValidarUsuario usuario = new ValidarUsuario(RegistroActivity.this);
+					usuario.execute();
+				}
+			}
+		});
+		
+		btnCancelarValidacion.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
+				startActivity(intent);
+				RegistroActivity.this.finish();
+			}
+		});
+		
+	}
+	
+	public void registroCliente() {
+		
+		setContentView(R.layout.activity_registro);
 		
 		topBar = (ImageView) findViewById(R.id.imgTopbar);
 		
@@ -140,6 +187,7 @@ public class RegistroActivity extends Activity {
 			}
 		});
 		
+		
 	}
 
 	@Override
@@ -147,6 +195,103 @@ public class RegistroActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.registro, menu);
 		return true;
+	}
+	
+	private class ValidarUsuario extends AsyncTask<Void, Void, String> {
+		
+		private ProgressDialog dialog;
+		RegistroActivity activityRef;
+		
+		public ValidarUsuario(RegistroActivity activityRef) {
+			this.activityRef = activityRef;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			dialog = ProgressDialog.show(RegistroActivity.this, "", "Validando usuario...", true);	
+		}
+		
+		@Override
+		protected String doInBackground(Void... params) {
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(SERVICE_BASE_URL + "clientes/validar/" + SERVICE_FORMAT);
+			post.setHeader("content-type", "application/json");
+			JSONObject listaIds = new JSONObject();
+			for(int i = 0; i < ids.length; i++) {
+				try {
+					listaIds.put(String.valueOf(i), ids[i]);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			JSONObject usuarioInfo = new JSONObject();
+			
+			try {
+				usuarioInfo.put("rut", validarRut.getText().toString());
+				usuarioInfo.put("respuestas", listaIds);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				StringEntity entity = new StringEntity(usuarioInfo.toString());
+				post.setEntity(entity);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+			HttpResponse resp;
+			try {
+				resp = client.execute(post);
+				return EntityUtils.toString(resp.getEntity());
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			dialog.dismiss();
+			Log.d("Resultado", result);
+			try {
+				JSONObject resultObject = new JSONObject(result);
+				if(resultObject.getString("status").equalsIgnoreCase("OK")) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
+			        builder.setMessage(resultObject.getString("response"))
+			               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+			                   public void onClick(DialogInterface dialog, int id) {
+			                	   Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
+			       					startActivity(intent);
+			       					RegistroActivity.this.finish();
+			                   }
+			               });
+			        builder.create();
+			        builder.show();
+				} else if(resultObject.getString("status").equalsIgnoreCase("NOT_FOUND")) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(RegistroActivity.this);
+					 builder.setMessage(resultObject.getString("response"))
+		               .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   activityRef.registroCliente();
+		                   }
+		               });
+					 builder.create();
+					 builder.show();
+					
+				} else {
+					Toast.makeText(RegistroActivity.this, resultObject.getString("response"), Toast.LENGTH_LONG).show();
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	private class RegistrarUsuario extends AsyncTask<Void, Void, String> {

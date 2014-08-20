@@ -58,9 +58,11 @@ public final class R {
         public static final int yellow_face_btn=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f060032;
+        public static final int action_settings=0x7f060035;
         public static final int btnCancelarRegistro=0x7f06002a;
+        public static final int btnCancelarValidacion=0x7f060032;
         public static final int btnGuardarRegistro=0x7f06002b;
+        public static final int btnGuardarValidacion=0x7f060033;
         public static final int btnSiguiente=0x7f060026;
         public static final int btnVolver=0x7f060025;
         public static final int campoRespuesta=0x7f060000;
@@ -109,12 +111,14 @@ public final class R {
         public static final int textView3=0x7f060020;
         public static final int tituloPregunta=0x7f060024;
         public static final int topbar=0x7f060017;
+        public static final int validarRut=0x7f060034;
     }
     public static final class layout {
         public static final int activity_configuration=0x7f030000;
         public static final int activity_encuesta=0x7f030001;
         public static final int activity_registro=0x7f030002;
         public static final int activity_router=0x7f030003;
+        public static final int activity_validar=0x7f030004;
     }
     public static final class menu {
         public static final int configuration=0x7f090000;
@@ -137,6 +141,7 @@ public final class R {
         public static final int title_activity_encuesta=0x7f070005;
         public static final int title_activity_registro=0x7f07000a;
         public static final int title_activity_router=0x7f070002;
+        public static final int validar_rut=0x7f07000e;
     }
     public static final class style {
         /** 

@@ -15,5 +15,6 @@
     <string name="breadcrumb_registro">Registro de clientes</string>
     <string name="label_registro">Registro clientes</string>
     <string name="text_register">Gracias por respondernuestra encuesta, por favor completesus datos para poder contactarnoscon usted y tener la posibilidadde ganar un tablet mensual</string>
+    <string name="validar_rut">Ingrese el Rut para validar el registro</string>
 
 </resources>
