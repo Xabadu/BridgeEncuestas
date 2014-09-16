@@ -95,6 +95,15 @@ public class EncuestaActivity extends Activity {
 		EditText campoRespuesta = null;
 		LinearLayout contenedorPreguntas;
 		Spinner listaRespuestas;
+		
+		RelativeLayout rlT = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+		if(numero % 2 == 0 && numero > 0) {
+			rlT.setBackgroundResource(R.drawable.bg_encuestas1);
+		} else if(numero % 3 == 0) {
+			rlT.setBackgroundResource(R.drawable.bg_encuestas2);
+		} else {
+			rlT.setBackgroundResource(R.drawable.bg_encuestas);
+		}
 				
 		topBar = (ImageView) findViewById(R.id.imgTopbar);
 		
@@ -179,6 +188,7 @@ public class EncuestaActivity extends Activity {
 							rb[i] = new RadioButton(this);
 							rb[i].setText(optionValues.getString("nombre"));
 							rb[i].setTextColor(Color.BLACK);
+							rb[i].setTextSize(24);
 							String radioId = "radio" + String.valueOf(i+1);
 							int resId = getResources().getIdentifier(radioId, "id", getPackageName());
 							rb[i].setId(resId);
@@ -418,6 +428,8 @@ public class EncuestaActivity extends Activity {
 				
 				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
+						LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+						cp.setVisibility(View.INVISIBLE);
 						RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
 						Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
 						animation.reset();
