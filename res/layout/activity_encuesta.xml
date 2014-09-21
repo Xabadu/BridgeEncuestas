@@ -37,15 +37,6 @@
                 android:text="@string/breadcrumb_encuestas"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
-                android:text="@string/label_encuesta_standard"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
 
             <LinearLayout
                 android:id="@+id/contenedorPreguntas"
@@ -53,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="50dp"
                 android:alpha="0.9"
                 android:background="@drawable/rounded_corner"
                 android:orientation="vertical"

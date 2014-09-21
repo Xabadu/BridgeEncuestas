@@ -60,19 +60,19 @@ public final class R {
         public static final int yellow_face_btn=0x7f020020;
     }
     public static final class id {
-        public static final int action_settings=0x7f060035;
-        public static final int btnCancelarRegistro=0x7f06002a;
-        public static final int btnCancelarValidacion=0x7f060032;
-        public static final int btnGuardarRegistro=0x7f06002b;
-        public static final int btnGuardarValidacion=0x7f060033;
-        public static final int btnSiguiente=0x7f060026;
-        public static final int btnVolver=0x7f060025;
+        public static final int action_settings=0x7f060034;
+        public static final int btnCancelarRegistro=0x7f060029;
+        public static final int btnCancelarValidacion=0x7f060031;
+        public static final int btnGuardarRegistro=0x7f06002a;
+        public static final int btnGuardarValidacion=0x7f060032;
+        public static final int btnSiguiente=0x7f060025;
+        public static final int btnVolver=0x7f060024;
         public static final int campoRespuesta=0x7f060000;
-        public static final int contenedorCirculos=0x7f060027;
-        public static final int contenedorPreguntas=0x7f060021;
+        public static final int contenedorCirculos=0x7f060026;
+        public static final int contenedorPreguntas=0x7f060020;
         public static final int guardarDatosBtn=0x7f06001a;
         public static final int imgTopbar=0x7f06001e;
-        public static final int linearInsideContenedor=0x7f060023;
+        public static final int linearInsideContenedor=0x7f060022;
         public static final int listadoTiendas=0x7f060019;
         public static final int listadoTiendasLabel=0x7f060018;
         public static final int radio1=0x7f060003;
@@ -96,24 +96,23 @@ public final class R {
         public static final int radio8=0x7f06000a;
         public static final int radio9=0x7f06000b;
         public static final int radioGroupRespuesta=0x7f060002;
-        public static final int registerContainerHeader=0x7f060028;
-        public static final int registerContainerText=0x7f060029;
-        public static final int registroApellidos=0x7f06002d;
-        public static final int registroCorreo=0x7f06002e;
-        public static final int registroNombre=0x7f06002c;
-        public static final int registroPatente=0x7f060030;
-        public static final int registroRut=0x7f06002f;
-        public static final int registroTelefono=0x7f060031;
+        public static final int registerContainerHeader=0x7f060027;
+        public static final int registerContainerText=0x7f060028;
+        public static final int registroApellidos=0x7f06002c;
+        public static final int registroCorreo=0x7f06002d;
+        public static final int registroNombre=0x7f06002b;
+        public static final int registroPatente=0x7f06002f;
+        public static final int registroRut=0x7f06002e;
+        public static final int registroTelefono=0x7f060030;
         public static final int relativeBgEncuestas=0x7f06001b;
-        public static final int scrollContenedor=0x7f060022;
+        public static final int scrollContenedor=0x7f060021;
         public static final int scrollView1=0x7f06001d;
         public static final int spinnerRespuesta=0x7f060001;
         public static final int superTopView=0x7f06001c;
         public static final int textView1=0x7f06001f;
-        public static final int textView3=0x7f060020;
-        public static final int tituloPregunta=0x7f060024;
+        public static final int tituloPregunta=0x7f060023;
         public static final int topbar=0x7f060017;
-        public static final int validarRut=0x7f060034;
+        public static final int validarRut=0x7f060033;
     }
     public static final class layout {
         public static final int activity_configuration=0x7f030000;
