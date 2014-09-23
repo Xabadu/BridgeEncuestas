@@ -103,7 +103,7 @@
                 android:id="@+id/contenedorCirculos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnSiguiente"
+                android:layout_below="@+id/contenedorPreguntas"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" >
