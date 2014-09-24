@@ -218,6 +218,7 @@ public class EncuestaActivity extends Activity {
 						campoRespuesta.setHint(optionValues.getString("nombre"));
 						campoRespuesta.setBackgroundResource(R.drawable.rounded_bg_edittext);
 						campoRespuesta.setTextColor(Color.BLACK);
+						campoRespuesta.setTextSize(24);
 						campoRespuesta.setPadding(31, 5, 0, 5);
 						scroll.addView(campoRespuesta);
 						View v = new View(this);
