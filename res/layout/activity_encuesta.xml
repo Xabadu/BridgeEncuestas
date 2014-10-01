@@ -45,7 +45,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="50dp"
-                android:alpha="0.9"
+                android:alpha="0.97"
                 android:background="@drawable/rounded_corner"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
