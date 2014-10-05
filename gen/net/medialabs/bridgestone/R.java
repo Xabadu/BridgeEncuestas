@@ -106,9 +106,9 @@ public final class R {
         public static final int registroTelefono=0x7f060030;
         public static final int relativeBgEncuestas=0x7f06001b;
         public static final int scrollContenedor=0x7f060021;
-        public static final int scrollView1=0x7f06001d;
         public static final int spinnerRespuesta=0x7f060001;
         public static final int superTopView=0x7f06001c;
+        public static final int svContenedor=0x7f06001d;
         public static final int textView1=0x7f06001f;
         public static final int tituloPregunta=0x7f060023;
         public static final int topbar=0x7f060017;

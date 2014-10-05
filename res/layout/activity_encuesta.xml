@@ -13,9 +13,10 @@
         android:background="#24262b" />
 
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/svContenedor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="20dp" >
 
         <RelativeLayout
@@ -24,6 +25,7 @@
 
             <ImageView
                 android:id="@+id/imgTopbar"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/img_bg_topbar" />
@@ -32,6 +34,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginLeft="150dp"
                 android:layout_marginTop="12dp"
                 android:text="@string/breadcrumb_encuestas"
