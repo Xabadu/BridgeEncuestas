@@ -262,6 +262,39 @@ public class EncuestaActivity extends Activity {
 							}
 							RadioButton radioB = (RadioButton) findViewById(checkedId);
 							radioB.setBackgroundColor(Color.LTGRAY);
+							
+							if(checkedId != -1) {
+								detalle = radioB.getText().toString();
+							} else {
+								EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
+								detalle = campoR.getText().toString();
+							}
+							numeroPregunta++;
+							
+							try {
+								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(resp);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							
+							if(numeroPregunta < preguntasArray.length()) {
+								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+								cp.setVisibility(View.INVISIBLE);
+								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+								Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+								animation.reset();
+								rl.clearAnimation();
+								rl.startAnimation(animation);
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+							} else {
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
+							}
+							
 						}
 					});
 					
