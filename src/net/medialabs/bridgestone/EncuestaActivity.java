@@ -294,54 +294,130 @@ public class EncuestaActivity extends Activity {
 					        5));
 					contenedorPreguntas.addView(v);
 					
-					caraVerde.setOnTouchListener(new OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
+					caraVerde.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
 							detalle = "BUENO";
-							caraAmarilla.setPressed(false);
-							caraNaranja.setPressed(false);
-							caraRoja.setPressed(false);
-							caraVerde.setPressed(true);
-							return true;
+							numeroPregunta++;
+							try {
+								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(resp);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							
+							if(numeroPregunta < preguntasArray.length()) {
+								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+								cp.setVisibility(View.INVISIBLE);
+								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+								Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+								animation.reset();
+								rl.clearAnimation();
+								rl.startAnimation(animation);
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+								
+							} else {
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
+							}
 						}
 					});
 					
-					caraAmarilla.setOnTouchListener(new OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
+					caraAmarilla.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
 							detalle = "REGULAR";
-							caraAmarilla.setPressed(true);
-							caraNaranja.setPressed(false);
-							caraRoja.setPressed(false);
-							caraVerde.setPressed(false);
-							return true;
+							numeroPregunta++;
+							try {
+								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(resp);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							
+							if(numeroPregunta < preguntasArray.length()) {
+								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+								cp.setVisibility(View.INVISIBLE);
+								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+								Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+								animation.reset();
+								rl.clearAnimation();
+								rl.startAnimation(animation);
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+								
+							} else {
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
+							}
 						}
 					});
 					
-					caraNaranja.setOnTouchListener(new OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
+					caraNaranja.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
 							detalle = "MALO";
-							caraAmarilla.setPressed(false);
-							caraNaranja.setPressed(true);
-							caraRoja.setPressed(false);
-							caraVerde.setPressed(false);
-							return true;
+							numeroPregunta++;
+							try {
+								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(resp);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							
+							if(numeroPregunta < preguntasArray.length()) {
+								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+								cp.setVisibility(View.INVISIBLE);
+								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+								Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+								animation.reset();
+								rl.clearAnimation();
+								rl.startAnimation(animation);
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+								
+							} else {
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
+							}
 						}
 					});
 					
-					caraRoja.setOnTouchListener(new OnTouchListener() {
-						@Override
-						public boolean onTouch(View v, MotionEvent event) {
+					caraRoja.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
 							detalle = "MUY MALO";
-							caraAmarilla.setPressed(false);
-							caraNaranja.setPressed(false);
-							caraRoja.setPressed(true);
-							caraVerde.setPressed(false);
-							return true;
+							numeroPregunta++;
+							try {
+								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
+								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
+								idPregunta = Integer.parseInt(preguntaSimple.getString("id"));
+								Respuesta resp = new Respuesta(idEncuesta, idPregunta, detalle);
+								listadoRespuestas.add(resp);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							
+							if(numeroPregunta < preguntasArray.length()) {
+								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
+								cp.setVisibility(View.INVISIBLE);
+								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
+								Animation animation = AnimationUtils.loadAnimation(EncuestaActivity.this, R.anim.alphaout);
+								animation.reset();
+								rl.clearAnimation();
+								rl.startAnimation(animation);
+								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
+								
+							} else {
+								GuardarEncuesta guardar = new GuardarEncuesta();
+								guardar.execute();
+							}
 						}
 					});
-
+					
 				}
 				
 			} 
