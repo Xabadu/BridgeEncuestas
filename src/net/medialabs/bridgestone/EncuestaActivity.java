@@ -177,6 +177,8 @@ public class EncuestaActivity extends Activity {
 					
 					
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
+					btnSiguiente.setVisibility(View.INVISIBLE);
+					btnVolver.setVisibility(View.INVISIBLE);
 					final RadioButton[] rb = new RadioButton[opcionesPreguntaArray.length()];
 					RadioGroup rg = new RadioGroup(this);
 					rg.setId(R.id.radioGroupRespuesta);
@@ -299,7 +301,8 @@ public class EncuestaActivity extends Activity {
 					});
 					
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
-					
+					btnSiguiente.setVisibility(View.INVISIBLE);
+					btnVolver.setVisibility(View.INVISIBLE);
 					LinearLayout contenedorCaras = new LinearLayout(this);
 					contenedorCaras.setOrientation(LinearLayout.HORIZONTAL);
 					contenedorCaras.setBackgroundResource(R.drawable.rounded_bg_edittext);
