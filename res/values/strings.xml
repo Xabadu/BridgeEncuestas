@@ -16,5 +16,6 @@
     <string name="label_registro">Registro clientes</string>
     <string name="text_register">Gracias por responder\nnuestra encuesta, por favor complete\nsus datos para poder contactarnos\ncon usted y tener la posibilidad\nde ganar un tablet mensual</string>
     <string name="validar_rut">Ingrese el Rut para validar el registro</string>
+    <string name="change_store">Cambiar tienda</string>
 
 </resources>

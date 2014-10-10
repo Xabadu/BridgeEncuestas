@@ -68,6 +68,7 @@ public final class R {
         public static final int btnSiguiente=0x7f060025;
         public static final int btnVolver=0x7f060024;
         public static final int campoRespuesta=0x7f060000;
+        public static final int change_store=0x7f060035;
         public static final int contenedorCirculos=0x7f060026;
         public static final int contenedorPreguntas=0x7f060020;
         public static final int guardarDatosBtn=0x7f06001a;
@@ -132,6 +133,7 @@ public final class R {
         public static final int app_name=0x7f070000;
         public static final int breadcrumb_encuestas=0x7f070008;
         public static final int breadcrumb_registro=0x7f07000b;
+        public static final int change_store=0x7f07000f;
         public static final int configuration_label=0x7f070007;
         public static final int hello_world=0x7f070004;
         public static final int label_encuesta_standard=0x7f070009;
