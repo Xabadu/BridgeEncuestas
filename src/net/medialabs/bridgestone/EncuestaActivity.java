@@ -27,6 +27,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -69,9 +72,9 @@ public class EncuestaActivity extends Activity {
 	private int idPregunta = -1;
 	private String detalle = "";
 	private ArrayList<Respuesta> listadoRespuestas = new ArrayList<Respuesta>();
-	final int[] notasIds = {R.drawable.img_nota_1, R.drawable.img_nota_2, R.drawable.img_nota_3,
-			R.drawable.img_nota_4, R.drawable.img_nota_5, R.drawable.img_nota_6, R.drawable.img_nota_7, 
-			R.drawable.img_nota_8, R.drawable.img_nota_9, R.drawable.img_nota_10};
+	private SoundPool sonidoAprobacion;
+	private boolean soundLoaded = false;
+	private int soundId;
 	
 	Cronometro cronometro;
 	
@@ -84,6 +87,15 @@ public class EncuestaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		sonidoAprobacion = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		sonidoAprobacion.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+		    public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+				soundLoaded = true;
+		    }
+		});
+		soundId = sonidoAprobacion.load(this, R.raw.bscl_aprueba, 1);
 		
 		EncuestaActiva encuesta = new EncuestaActiva(this);
 		encuesta.execute();
@@ -216,6 +228,8 @@ public class EncuestaActivity extends Activity {
 					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
 					scroll.addView(rg);
 					if(indiceOtros != -1) {
+						btnSiguiente.setVisibility(View.VISIBLE);
+						btnVolver.setVisibility(View.VISIBLE);
 						JSONObject optionValues = opcionesPreguntaArray.getJSONObject(indiceOtros);
 						campoRespuesta = new EditText(this);
 						campoRespuesta.setId(R.id.campoRespuesta);
@@ -285,6 +299,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -294,6 +311,9 @@ public class EncuestaActivity extends Activity {
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -346,6 +366,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -356,6 +379,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -377,6 +403,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -387,6 +416,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -408,6 +440,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -418,6 +453,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -439,6 +477,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -449,6 +490,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -536,6 +580,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -546,6 +593,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -567,6 +617,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -577,6 +630,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -598,6 +654,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -608,6 +667,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -629,6 +691,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -639,6 +704,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -660,6 +728,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -670,6 +741,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -691,6 +765,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -701,6 +778,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -722,6 +802,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -732,6 +815,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -753,6 +839,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -763,6 +852,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -784,6 +876,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -794,6 +889,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -815,6 +913,9 @@ public class EncuestaActivity extends Activity {
 							}
 							
 							if(numeroPregunta < preguntasArray.length()) {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 								cp.setVisibility(View.INVISIBLE);
 								RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -825,6 +926,9 @@ public class EncuestaActivity extends Activity {
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
 								
 							} else {
+								if(soundLoaded) {
+									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+								}
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
@@ -919,6 +1023,9 @@ public class EncuestaActivity extends Activity {
 				
 				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
+						if(soundLoaded) {
+							sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+						}
 						LinearLayout cp = (LinearLayout) findViewById(R.id.contenedorPreguntas);
 						cp.setVisibility(View.INVISIBLE);
 						RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
@@ -941,6 +1048,9 @@ public class EncuestaActivity extends Activity {
 					}
 					
 				} else {
+					if(soundLoaded) {
+						sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
+					}
 					GuardarEncuesta guardar = new GuardarEncuesta();
 					guardar.execute();
 				}
