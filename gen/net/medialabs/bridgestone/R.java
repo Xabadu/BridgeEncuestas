@@ -52,12 +52,23 @@ public final class R {
         public static final int img_face_red_pressed=0x7f020018;
         public static final int img_face_yellow=0x7f020019;
         public static final int img_face_yellow_pressed=0x7f02001a;
-        public static final int orange_face_btn=0x7f02001b;
-        public static final int red_face_btn=0x7f02001c;
-        public static final int rounded_bg_edittext=0x7f02001d;
-        public static final int rounded_bg_preguntas=0x7f02001e;
-        public static final int rounded_corner=0x7f02001f;
-        public static final int yellow_face_btn=0x7f020020;
+        public static final int img_nota_1=0x7f02001b;
+        public static final int img_nota_10=0x7f02001c;
+        public static final int img_nota_2=0x7f02001d;
+        public static final int img_nota_3=0x7f02001e;
+        public static final int img_nota_4=0x7f02001f;
+        public static final int img_nota_5=0x7f020020;
+        public static final int img_nota_6=0x7f020021;
+        public static final int img_nota_7=0x7f020022;
+        public static final int img_nota_8=0x7f020023;
+        public static final int img_nota_9=0x7f020024;
+        public static final int orange_face_btn=0x7f020025;
+        public static final int red_face_btn=0x7f020026;
+        public static final int rounded_bg_edittext=0x7f020027;
+        public static final int rounded_bg_notas=0x7f020028;
+        public static final int rounded_bg_preguntas=0x7f020029;
+        public static final int rounded_corner=0x7f02002a;
+        public static final int yellow_face_btn=0x7f02002b;
     }
     public static final class id {
         public static final int action_settings=0x7f060034;
