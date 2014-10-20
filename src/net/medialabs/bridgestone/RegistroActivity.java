@@ -103,9 +103,7 @@ public class RegistroActivity extends Activity {
 	public void registroCliente() {
 		
 		setContentView(R.layout.activity_registro);
-		
-		topBar = (ImageView) findViewById(R.id.imgTopbar);
-		
+				
 		registroNombre = (EditText) findViewById(R.id.registroNombre);
 		registroApellidos = (EditText) findViewById(R.id.registroApellidos);
 		registroCorreo = (EditText) findViewById(R.id.registroCorreo);
@@ -114,14 +112,6 @@ public class RegistroActivity extends Activity {
 		registroTelefono = (EditText) findViewById(R.id.registroTelefono);
 		btnCancelar = (ImageButton) findViewById(R.id.btnCancelarRegistro);
 		btnGuardar = (ImageButton) findViewById(R.id.btnGuardarRegistro);
-		
-		topBar.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
-				startActivity(intent);
-				RegistroActivity.this.finish();
-			}
-		});
 		
 		btnGuardar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
