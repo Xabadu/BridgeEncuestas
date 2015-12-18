@@ -57,7 +57,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EncuestaActivity extends Activity {
-	
+
 	private static final String SERVICE_BASE_URL = "http://www.solucionesparche.com/labs/bridgestone/index.php/servicios/";
 	private static final String SERVICE_FORMAT = "format/json/";
 	private static final String PREFERENCES_FILE = "net.medialabs.bridgestone.PREFERENCE_FILE_KEY";
@@ -75,19 +75,19 @@ public class EncuestaActivity extends Activity {
 	private SoundPool sonidoAprobacion;
 	private boolean soundLoaded = false;
 	private int soundId;
-	
+
 	Cronometro cronometro;
-	
+
 	ImageButton btnSiguiente;
 	ImageButton btnVolver;
 	ImageView topBar;
-	
+
 	TextView enunciadoPregunta;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		sonidoAprobacion = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 		sonidoAprobacion.setOnLoadCompleteListener(new OnLoadCompleteListener() {
 			@Override
@@ -96,11 +96,11 @@ public class EncuestaActivity extends Activity {
 		    }
 		});
 		soundId = sonidoAprobacion.load(this, R.raw.bscl_aprueba, 1);
-		
+
 		EncuestaActiva encuesta = new EncuestaActiva(this);
 		encuesta.execute();
 	}
-	
+
 	private void mostrarEncuesta(final JSONObject encuesta, int numero, ArrayList<Respuesta> resp) {
 		cronometro = new Cronometro(600000, 1000);
 		cronometro.start();
@@ -109,7 +109,7 @@ public class EncuestaActivity extends Activity {
 		EditText campoRespuesta = null;
 		LinearLayout contenedorPreguntas;
 		Spinner listaRespuestas;
-		
+
 		RelativeLayout rlT = (RelativeLayout) findViewById(R.id.relativeBgEncuestas);
 		if(numero % 2 == 0 && numero > 0) {
 			rlT.setBackgroundResource(R.drawable.bg_encuestas1);
@@ -118,9 +118,9 @@ public class EncuestaActivity extends Activity {
 		} else {
 			rlT.setBackgroundResource(R.drawable.bg_encuestas);
 		}
-				
+
 		topBar = (ImageView) findViewById(R.id.imgTopbar);
-		
+
 		numeroPregunta = numero;
 		indiceOtros = -1;
 		btnSiguiente = (ImageButton) findViewById(R.id.btnSiguiente);
@@ -130,7 +130,7 @@ public class EncuestaActivity extends Activity {
 		detalle = "";
 		try {
 			preguntasArray = encuesta.getJSONArray("preguntas");
-			
+
 			preguntaSimple = preguntasArray.getJSONObject(numeroPregunta);
 			enunciadoPregunta = (TextView) findViewById(R.id.tituloPregunta);
 			enunciadoPregunta.setText(String.valueOf(numeroPregunta+1) + ".-" + preguntaSimple.getString("enunciado"));
@@ -150,7 +150,7 @@ public class EncuestaActivity extends Activity {
 			} else {
 				opcionesArray = encuesta.getJSONArray("opciones");
 				opcionesPreguntaArray = opcionesArray.getJSONArray(numeroPregunta);
-				
+
 				if(preguntaSimple.getString("tipo").equalsIgnoreCase("SELECT")) {
 					ArrayList<String> optionsList = new ArrayList<String>();
 					optionsList.add("Seleccione una alternativa");
@@ -187,8 +187,8 @@ public class EncuestaActivity extends Activity {
 						        5));
 						contenedorPreguntas.addView(v2);
 					}
-					
-					
+
+
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("RADIO")) {
 					btnSiguiente.setVisibility(View.INVISIBLE);
 					btnVolver.setVisibility(View.INVISIBLE);
@@ -222,7 +222,7 @@ public class EncuestaActivity extends Activity {
 						} else {
 							indiceOtros = i;
 						}
-						
+
 					}
 					final RadioGroup tempRg = rg;
 					LinearLayout scroll = (LinearLayout) findViewById(R.id.linearInsideContenedor);
@@ -244,7 +244,7 @@ public class EncuestaActivity extends Activity {
 						        ViewGroup.LayoutParams.WRAP_CONTENT,
 						        5));
 						scroll.addView(v);
-						
+
 						campoRespuesta.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 							@Override
@@ -256,16 +256,16 @@ public class EncuestaActivity extends Activity {
 										tempRb.setBackgroundResource(R.drawable.rounded_bg_edittext);
 										tempRb.setButtonDrawable(android.R.color.transparent);
 										tempRb.setPadding(31, 5, 0, 5);
-									}								
+									}
 								}
 							}
-							
+
 						});
-						
+
 					}
-					
-					
-					
+
+
+
 					rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						public void onCheckedChanged(RadioGroup group, int checkedId) {
 							for(int i = 0; i < tempRg.getChildCount(); i++) {
@@ -275,11 +275,11 @@ public class EncuestaActivity extends Activity {
 									tempRb.setBackgroundResource(R.drawable.rounded_bg_edittext);
 									tempRb.setButtonDrawable(android.R.color.transparent);
 									tempRb.setPadding(31, 5, 0, 5);
-								}								
+								}
 							}
 							RadioButton radioB = (RadioButton) findViewById(checkedId);
 							radioB.setBackgroundColor(Color.LTGRAY);
-							
+
 							if(checkedId != -1) {
 								detalle = radioB.getText().toString();
 							} else {
@@ -287,7 +287,7 @@ public class EncuestaActivity extends Activity {
 								detalle = campoR.getText().toString();
 							}
 							numeroPregunta++;
-							
+
 							try {
 								JSONObject encuestaInfo = encuesta.getJSONObject("encuesta");
 								idEncuesta = Integer.parseInt(encuestaInfo.getString("id"));
@@ -297,7 +297,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -317,10 +317,10 @@ public class EncuestaActivity extends Activity {
 								GuardarEncuesta guardar = new GuardarEncuesta();
 								guardar.execute();
 							}
-							
+
 						}
 					});
-					
+
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 					btnSiguiente.setVisibility(View.INVISIBLE);
 					btnVolver.setVisibility(View.INVISIBLE);
@@ -350,7 +350,7 @@ public class EncuestaActivity extends Activity {
 					        ViewGroup.LayoutParams.WRAP_CONTENT,
 					        5));
 					contenedorPreguntas.addView(v);
-					
+
 					caraVerde.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "BUENO";
@@ -364,7 +364,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -377,7 +377,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -387,7 +387,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					caraAmarilla.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "REGULAR";
@@ -401,7 +401,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -414,7 +414,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -424,7 +424,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					caraNaranja.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "MALO";
@@ -438,7 +438,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -451,7 +451,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -461,7 +461,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					caraRoja.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "MUY MALO";
@@ -475,7 +475,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -488,7 +488,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -498,7 +498,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 				} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("GRADE")) {
 					btnSiguiente.setVisibility(View.INVISIBLE);
 					btnVolver.setVisibility(View.INVISIBLE);
@@ -512,7 +512,7 @@ public class EncuestaActivity extends Activity {
 					LinearLayout segundaFila = new LinearLayout(this);
 					segundaFila.setOrientation(LinearLayout.HORIZONTAL);
 					segundaFila.setGravity(Gravity.CENTER);
-				
+
 					final ImageButton nota1 = new ImageButton(this);
 					nota1.setImageResource(R.drawable.img_nota_1);
 					nota1.setBackgroundColor(Color.TRANSPARENT);
@@ -543,7 +543,7 @@ public class EncuestaActivity extends Activity {
 					final ImageButton nota10 = new ImageButton(this);
 					nota10.setImageResource(R.drawable.img_nota_10);
 					nota10.setBackgroundColor(Color.TRANSPARENT);
-					
+
 					primeraFila.addView(nota1);
 					primeraFila.addView(nota2);
 					primeraFila.addView(nota3);
@@ -554,17 +554,17 @@ public class EncuestaActivity extends Activity {
 					segundaFila.addView(nota8);
 					segundaFila.addView(nota9);
 					segundaFila.addView(nota10);
-					
+
 					contenedorNotas.addView(primeraFila);
 					contenedorNotas.addView(segundaFila);
-					
+
 					contenedorPreguntas.addView(contenedorNotas);
 					View v = new View(this);
 					v.setLayoutParams(new ViewGroup.LayoutParams(
 					        ViewGroup.LayoutParams.WRAP_CONTENT,
 					        5));
 					contenedorPreguntas.addView(v);
-					
+
 					nota1.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "1";
@@ -578,7 +578,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -591,7 +591,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -601,7 +601,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota2.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "2";
@@ -615,7 +615,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -628,7 +628,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -638,7 +638,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota3.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "3";
@@ -652,7 +652,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -665,7 +665,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -675,7 +675,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota4.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "4";
@@ -689,7 +689,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -702,7 +702,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -712,7 +712,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota5.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "5";
@@ -726,7 +726,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -739,7 +739,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -749,7 +749,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota6.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "6";
@@ -763,7 +763,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -776,7 +776,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -786,7 +786,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota7.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "7";
@@ -800,7 +800,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -813,7 +813,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -823,7 +823,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota8.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "8";
@@ -837,7 +837,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -850,7 +850,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -860,7 +860,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota9.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "9";
@@ -874,7 +874,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -887,7 +887,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -897,7 +897,7 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 					nota10.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							detalle = "10";
@@ -911,7 +911,7 @@ public class EncuestaActivity extends Activity {
 							} catch (JSONException e) {
 								e.printStackTrace();
 							}
-							
+
 							if(numeroPregunta < preguntasArray.length()) {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -924,7 +924,7 @@ public class EncuestaActivity extends Activity {
 								rl.clearAnimation();
 								rl.startAnimation(animation);
 								mostrarEncuesta(encuesta, numeroPregunta, listadoRespuestas);
-								
+
 							} else {
 								if(soundLoaded) {
 									sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -934,12 +934,12 @@ public class EncuestaActivity extends Activity {
 							}
 						}
 					});
-					
+
 				}
-				
-			} 
+
+			}
 			LinearLayout circulosLayout = (LinearLayout) findViewById(R.id.contenedorCirculos);
-			
+
 			for(int i = 0; i < preguntasArray.length(); i++) {
 				ImageView circleImg = new ImageView(this);
 				if(i == numeroPregunta) {
@@ -949,27 +949,27 @@ public class EncuestaActivity extends Activity {
 				} else {
 					circleImg.setBackgroundResource(R.drawable.circle_dark_grey);
 				}
-				
+
 				circulosLayout.addView(circleImg);
 			}
-						
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		topBar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				EncuestaActiva encuesta = new EncuestaActiva(EncuestaActivity.this);
 				encuesta.execute();
 			}
 		});
-		
+
 		btnSiguiente.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				boolean enabled = false;
 				numeroPregunta++;
 				try {
-					if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) { 
+					if(preguntaSimple.getString("tipo").equalsIgnoreCase("TEXT")) {
 						EditText campoR = (EditText) findViewById(R.id.campoRespuesta);
 						detalle = campoR.getText().toString();
 						if(!detalle.equals("")) {
@@ -1002,7 +1002,7 @@ public class EncuestaActivity extends Activity {
 							if(!detalle.equals("")) {
 								enabled = true;
 							}
-						}						
+						}
 					} else if(preguntaSimple.getString("tipo").equalsIgnoreCase("ICONS")) {
 						if(!detalle.equals("")) {
 							enabled = true;
@@ -1020,7 +1020,7 @@ public class EncuestaActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+
 				if(numeroPregunta < preguntasArray.length()) {
 					if(enabled) {
 						if(soundLoaded) {
@@ -1046,7 +1046,7 @@ public class EncuestaActivity extends Activity {
 				        builder.create();
 				        builder.show();
 					}
-					
+
 				} else {
 					if(soundLoaded) {
 						sonidoAprobacion.play(soundId, 1, 1, 0, 0, 1);
@@ -1056,27 +1056,26 @@ public class EncuestaActivity extends Activity {
 				}
 			}
 		});
-		
+
 		btnVolver.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				EncuestaActiva encuesta = new EncuestaActiva(EncuestaActivity.this);
 				encuesta.execute();
 			}
 		});
-		
+
 	}
-	
+
 	public void touch() {
 		cronometro.start();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.encuesta, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -1090,48 +1089,48 @@ public class EncuestaActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	
+
 	public class Cronometro extends CountDownTimer {
-		
+
 		public Cronometro(long millisInFuture, long countDownInterval) {
 			super(millisInFuture, countDownInterval);
 		}
-		
+
 		@Override
 		public void onFinish() {
 			EncuestaActiva encuesta = new EncuestaActiva(EncuestaActivity.this);
 			encuesta.execute();
 		}
-		
+
 		@Override
 		public void onTick(long millisUntilFinished) {
 		}
-		
+
 	}
-	
+
 	private class EncuestaActiva extends AsyncTask<Void, Void, String> {
-		
+
 		private ProgressDialog dialog;
 		private Alertas alerta = new Alertas();
 		private EncuestaActivity activityRef;
 		private JSONObject encuestaObject;
-		
+
 		public EncuestaActiva(EncuestaActivity activityRef) {
 			this.activityRef = activityRef;
 		}
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(activityRef, "", "Cargando encuesta...", true);	
+			dialog = ProgressDialog.show(activityRef, "", "Cargando encuesta...", true);
 		}
-		
+
 		@Override
 		protected String doInBackground(Void... params) {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet get = new HttpGet(SERVICE_BASE_URL + "encuestas/activa/" + SERVICE_FORMAT);
 			get.setHeader("content-type", "application/json");
-			
+
 			try {
 				HttpResponse response = client.execute(get);
 				return EntityUtils.toString(response.getEntity());
@@ -1142,7 +1141,7 @@ public class EncuestaActivity extends Activity {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
@@ -1162,23 +1161,23 @@ public class EncuestaActivity extends Activity {
 				}
 				dialog.dismiss();
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	private class GuardarEncuesta extends AsyncTask<Void, Void, String> {
-		
+
 		private ProgressDialog dialog;
 		private ArrayList<Respuesta> respuestas = new ArrayList<Respuesta>();
 		private JSONObject responseObject;
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(EncuestaActivity.this, "", "Guardando respuestas...", true);	
+			dialog = ProgressDialog.show(EncuestaActivity.this, "", "Guardando respuestas...", true);
 		}
-		
+
 		@Override
 		protected String doInBackground(Void... params) {
 			respuestas = listadoRespuestas;
@@ -1186,7 +1185,7 @@ public class EncuestaActivity extends Activity {
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(SERVICE_BASE_URL + "encuestas/guardar/" + SERVICE_FORMAT);
 			post.setHeader("content-type", "application/json");
-			
+
 			JSONObject listaPreguntas = new JSONObject();
 			JSONObject listaDetalles = new JSONObject();
 			Respuesta singleResp = respuestas.get(0);
@@ -1202,7 +1201,7 @@ public class EncuestaActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 			JSONObject respuestasInfoObject = new JSONObject();
 			try {
@@ -1213,14 +1212,14 @@ public class EncuestaActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			try {
 				StringEntity entity = new StringEntity(respuestasInfoObject.toString());
 				post.setEntity(entity);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			
+
 			try {
 				HttpResponse resp = client.execute(post);
 				return EntityUtils.toString(resp.getEntity());
@@ -1229,10 +1228,10 @@ public class EncuestaActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
@@ -1254,10 +1253,10 @@ public class EncuestaActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			dialog.dismiss();
 		}
-		
+
 	}
 
 }

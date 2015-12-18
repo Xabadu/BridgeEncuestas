@@ -32,7 +32,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class RegistroActivity extends Activity {
-	
+
 	EditText registroNombre;
 	EditText registroApellidos;
 	EditText registroCorreo;
@@ -49,28 +49,28 @@ public class RegistroActivity extends Activity {
 	private boolean enabled;
 	private String mensaje;
 	Validador validador = new Validador(this);
-	
+
 	private static final String SERVICE_BASE_URL = "http://www.solucionesparche.com/labs/bridgestone/index.php/servicios/";
 	private static final String SERVICE_FORMAT = "format/json/";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		ids = intent.getIntArrayExtra("ids");
-		
+
 		validarCliente();
-		
+
 	}
-	
+
 	public void validarCliente() {
-		
+
 		setContentView(R.layout.activity_validar);
-		
+
 		btnCancelarValidacion = (ImageButton) findViewById(R.id.btnCancelarValidacion);
 		btnGuardarValidacion = (ImageButton) findViewById(R.id.btnGuardarValidacion);
 		validarRut = (EditText) findViewById(R.id.validarRut);
-		
+
 		btnGuardarValidacion.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if(validarRut.getText().toString().equals("")) {
@@ -89,7 +89,7 @@ public class RegistroActivity extends Activity {
 				}
 			}
 		});
-		
+
 		btnCancelarValidacion.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
@@ -97,13 +97,13 @@ public class RegistroActivity extends Activity {
 				RegistroActivity.this.finish();
 			}
 		});
-		
+
 	}
-	
+
 	public void registroCliente() {
-		
+
 		setContentView(R.layout.activity_registro);
-				
+
 		registroNombre = (EditText) findViewById(R.id.registroNombre);
 		registroApellidos = (EditText) findViewById(R.id.registroApellidos);
 		registroCorreo = (EditText) findViewById(R.id.registroCorreo);
@@ -112,33 +112,33 @@ public class RegistroActivity extends Activity {
 		registroTelefono = (EditText) findViewById(R.id.registroTelefono);
 		btnCancelar = (ImageButton) findViewById(R.id.btnCancelarRegistro);
 		btnGuardar = (ImageButton) findViewById(R.id.btnGuardarRegistro);
-		
+
 		btnGuardar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				if(!registroNombre.getText().toString().equals("") && 
-						!registroApellidos.getText().toString().equals("") && 
+				if(!registroNombre.getText().toString().equals("") &&
+						!registroApellidos.getText().toString().equals("") &&
 						!registroCorreo.getText().toString().equals("")) {
 					enabled = true;
 					if(!registroRut.getText().toString().equals("")) {
 						if(!validador.rut(registroRut.getText().toString())) {
 							enabled = false;
-							mensaje = "Debe ingresar un RUT v‡lido.";
+							mensaje = "Debe ingresar un RUT vï¿½lido.";
 						}
 					}
 					if(!validador.email(registroCorreo.getText().toString())) {
 						enabled = false;
-						mensaje = "Debe ingresar un correo v‡lido.";
+						mensaje = "Debe ingresar un correo vï¿½lido.";
 					}
 					if(!registroTelefono.getText().toString().equals("")) {
 						if(!validador.telefono(registroTelefono.getText().toString())) {
 							enabled = false;
-							mensaje = "Debe ingresar un telŽfono de 8 d’gitos m‡ximo (Sin 0).";
+							mensaje = "Debe ingresar un telï¿½fono de 8 dï¿½gitos mï¿½ximo (Sin 0).";
 						}
 					}
 					if(!registroPatente.getText().toString().equals("")) {
 						if(!validador.patente(registroPatente.getText().toString())) {
 							enabled = false;
-							mensaje = "La patente contiene caracteres inv‡lidos (solo letras y nœmeros).";
+							mensaje = "La patente contiene caracteres invï¿½lidos (solo letras y nï¿½meros).";
 						}
 					}
 					if(enabled) {
@@ -168,7 +168,7 @@ public class RegistroActivity extends Activity {
 				}
 			}
 		});
-		
+
 		btnCancelar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(RegistroActivity.this, EncuestaActivity.class);
@@ -176,32 +176,31 @@ public class RegistroActivity extends Activity {
 				RegistroActivity.this.finish();
 			}
 		});
-		
-		
+
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.registro, menu);
 		return true;
 	}
-	
+
 	private class ValidarUsuario extends AsyncTask<Void, Void, String> {
-		
+
 		private ProgressDialog dialog;
 		RegistroActivity activityRef;
-		
+
 		public ValidarUsuario(RegistroActivity activityRef) {
 			this.activityRef = activityRef;
 		}
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(RegistroActivity.this, "", "Validando usuario...", true);	
+			dialog = ProgressDialog.show(RegistroActivity.this, "", "Validando usuario...", true);
 		}
-		
+
 		@Override
 		protected String doInBackground(Void... params) {
 			HttpClient client = new DefaultHttpClient();
@@ -215,23 +214,23 @@ public class RegistroActivity extends Activity {
 					e.printStackTrace();
 				}
 			}
-			
+
 			JSONObject usuarioInfo = new JSONObject();
-			
+
 			try {
 				usuarioInfo.put("rut", validarRut.getText().toString());
 				usuarioInfo.put("respuestas", listaIds);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			try {
 				StringEntity entity = new StringEntity(usuarioInfo.toString());
 				post.setEntity(entity);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			
+
 			HttpResponse resp;
 			try {
 				resp = client.execute(post);
@@ -243,7 +242,7 @@ public class RegistroActivity extends Activity {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
@@ -273,7 +272,7 @@ public class RegistroActivity extends Activity {
 		               });
 					 builder.create();
 					 builder.show();
-					
+
 				} else {
 					Toast.makeText(RegistroActivity.this, resultObject.getString("response"), Toast.LENGTH_LONG).show();
 				}
@@ -281,19 +280,19 @@ public class RegistroActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	private class RegistrarUsuario extends AsyncTask<Void, Void, String> {
-		
+
 		private ProgressDialog dialog;
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			dialog = ProgressDialog.show(RegistroActivity.this, "", "Registrando usuario...", true);	
+			dialog = ProgressDialog.show(RegistroActivity.this, "", "Registrando usuario...", true);
 		}
-		
+
 		@Override
 		protected String doInBackground(Void... params) {
 			HttpClient client = new DefaultHttpClient();
@@ -307,9 +306,9 @@ public class RegistroActivity extends Activity {
 					e.printStackTrace();
 				}
 			}
-			
+
 			JSONObject usuarioInfo = new JSONObject();
-			
+
 			try {
 				usuarioInfo.put("nombre", registroNombre.getText().toString());
 				usuarioInfo.put("apellidos", registroApellidos.getText().toString());
@@ -333,14 +332,14 @@ public class RegistroActivity extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
+
 			try {
 				StringEntity entity = new StringEntity(usuarioInfo.toString());
 				post.setEntity(entity);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			
+
 			HttpResponse resp;
 			try {
 				resp = client.execute(post);
@@ -352,7 +351,7 @@ public class RegistroActivity extends Activity {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
@@ -379,7 +378,7 @@ public class RegistroActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 }
